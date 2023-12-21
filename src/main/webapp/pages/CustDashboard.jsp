@@ -189,7 +189,7 @@ body {
                   <a href="#" class="btn btn-danger" style="font-size:small;">View Packages</a>
               </div>
               <div class="col-6 d-flex align-items-center justify-content-center">
-                <p class="text-danger" style="font-size: 15px;">Starting from ₹3200</p>
+                <p class="text-danger" style="font-size: 15px;">Starting from &#x20B9;3200</p>
               </div>
             </div>
             </div>
@@ -206,7 +206,7 @@ body {
                   <a href="#" class="btn btn-danger" style="font-size:small;">View Packages</a>
               </div>
               <div class="col-6 d-flex align-items-center justify-content-center">
-                <p class="text-danger" style="font-size: 15px;">Starting from ₹3200</p>
+                <p class="text-danger" style="font-size: 15px;">Starting from &#x20B9;3200</p>
               </div>
             </div>
             </div>
@@ -223,7 +223,7 @@ body {
                   <a href="#" class="btn btn-danger" style="font-size:small;">View Packages</a>
               </div>
               <div class="col-6 d-flex align-items-center justify-content-center">
-                <p class="text-danger" style="font-size: 15px;">Starting from ₹3200</p>
+                <p class="text-danger" style="font-size: 15px;">Starting from &#x20B9;3200</p>
               </div>
             </div>
             </div>

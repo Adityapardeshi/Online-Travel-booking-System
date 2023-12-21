@@ -17,7 +17,7 @@ public class CustomerController
 	@RequestMapping("/")
 	public String one()
 	{
-		return "register";
+		return "CustRegister";
 	}
 	
 	@RequestMapping(value="/savedata",method=RequestMethod.POST)
@@ -38,7 +38,7 @@ public class CustomerController
 	@RequestMapping("/login")
 	public String login()
 	{
-		return "login";
+		return "CustLogin";
 	}
 	
 	@PostMapping("/CheckData")
@@ -58,11 +58,24 @@ public class CustomerController
 	@RequestMapping("/dash")
 	public String dash()
 	{
-		return "dash";
+		return "CustDashboard";
 	}
 	
 	
-
+	@RequestMapping("/adminHome")
+	public String adminhome() {
+		return "AdminHome";
+	}
+	
+	@RequestMapping("/add_hotel")
+	public String add_hotel() {
+		return "add_hotel";
+	}
+	
+	@RequestMapping("/create_package")
+	public String c_package() {
+		return "create_package";
+	}
 }
 
 
