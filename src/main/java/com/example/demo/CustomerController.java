@@ -29,8 +29,6 @@ public class CustomerController
 			cc.register(ct);
 		}
 		
-		
-		
 		return "redirect:/login";
 		
 	}
@@ -61,6 +59,40 @@ public class CustomerController
 		return "CustDashboard";
 	}
 	
+	@RequestMapping("/adminLog")
+	public String adLogin() {
+		return "AdminLogin";
+	}
+	
+	@RequestMapping("/adminreg")
+	public String adminReg() {
+		return "AdminReg";
+	}
+	
+	@Autowired
+	AdminService adService;
+	
+	//Admin Registration method	
+	
+	@RequestMapping(value="/adminSave", method = RequestMethod.POST)
+	public String save(@ModelAttribute("reg") Admin reg) {
+		adService.registerAdmin(reg);
+		
+		return "redirect:/adminLog";
+	}
+	
+	//admin login
+	
+	@RequestMapping(value="/adminCred", method=RequestMethod.POST)
+	public String checkCred(@RequestParam("email") String email, @RequestParam("password") String password) {
+		Admin ad = adService.checkCreds(email, password);
+		
+		if(ad == null) {
+			return "redirect:/adminLog";
+		}
+		return "redirect:/adminHome";
+	}
+	
 	
 	@RequestMapping("/adminHome")
 	public String adminhome() {
@@ -75,6 +107,12 @@ public class CustomerController
 	@RequestMapping("/create_package")
 	public String c_package() {
 		return "create_package";
+	}
+	
+	@PostMapping("/add_package")
+	public String add_packcage(@ModelAttribute("pack") Packages pack) {
+		adService.storePackage(pack);
+		return "redirect:/adminHome";
 	}
 }
 

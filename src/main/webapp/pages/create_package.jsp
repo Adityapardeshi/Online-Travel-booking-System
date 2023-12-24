@@ -15,18 +15,18 @@
 
     <div class="container d-flex align-items-center justify-content-center mt-5">
         <div class="card d-flex align-items-center justify-content-center shadow-lg" style="width: 45rem;">
-    <form style="width: 65%;" class="my-3">
+    <form style="width: 65%;" class="my-3" method="post" action="/add_package">
         <div class="mb-3">
           <label for="place" class="form-label">Place</label>
-          <input type="text" class="form-control" id="place">
+          <input type="text" name="place" class="form-control" id="place">
         </div>
         <div class="mb-3">
           <label for="nights" class="form-label">Total Nights</label>
-          <input type="number" class="form-control" id="nights">
+          <input type="number" name="nights" class="form-control" id="nights">
         </div>
         <div class="mb-3">
             <label for="hotel" class="form-label">Hotel Name</label>
-            <select name="hotel" class="form-select" id="hotel">
+            <select name="hotel" name="hotel" class="form-select" id="hotel">
                 <option value="The Taj Palace">The Taj Palace</option>
                 <option value="Rambagh Palace">Rambagh Palace</option>
                 <option value="SaffronStays">SaffronStays</option>
@@ -35,11 +35,11 @@
           </div>
           <div class="mb-3">
             <label for="Activities" class="form-label">Activities</label>
-            <input type="text" class="form-control" id="Activities">
+            <input type="text" name="activities" class="form-control" id="Activities">
           </div>
           <div class="mb-3">
             <label for="price" class="form-label">Price</label>
-            <input type="number" class="form-control" id="price">
+            <input type="number" name="price" class="form-control" id="price">
           </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
