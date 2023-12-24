@@ -8,6 +8,8 @@
       <meta charset="utf-8">
       <title>Register Admin</title>
       <link rel="stylesheet" href="/css/adminreg.css">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
    </head>
    <body>
@@ -36,6 +38,7 @@
                      <input type="submit" value="Register">
                   </div>  
             </div>
+            <a href="/adminLog" class="h6 mt-2 d-flex align-items-center justify-content-center">Already Registerd? Login Here</a>
          </div>
       </div>
       <script>

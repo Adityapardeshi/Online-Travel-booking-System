@@ -1,7 +1,10 @@
 package com.example.demo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,14 +20,14 @@ public class CustomerController
 	@RequestMapping("/")
 	public String one()
 	{
-		return "CustRegister";
+		return "CustLogin";
 	}
 	
 	@RequestMapping(value="/savedata",method=RequestMethod.POST)
-	public String two(@ModelAttribute("st") Customer ct)
+	public String two(@ModelAttribute("st") Customer ct, @RequestParam("cpass") String cpass)
 	{
 		
-		if(ct.getPass().equals(ct.getCpass()));
+		if(ct.getPass().equals(cpass))
 		{
 			cc.register(ct);
 		}
@@ -37,6 +40,12 @@ public class CustomerController
 	public String login()
 	{
 		return "CustLogin";
+	}
+	
+	@RequestMapping("/register")
+	public String reg()
+	{
+		return "CustRegister";
 	}
 	
 	@PostMapping("/CheckData")
@@ -113,6 +122,21 @@ public class CustomerController
 	public String add_packcage(@ModelAttribute("pack") Packages pack) {
 		adService.storePackage(pack);
 		return "redirect:/adminHome";
+	}
+	
+	@RequestMapping("/displayPackage")
+	public String displayPackage(ModelMap m) {
+		
+		List<Packages> allPackages = adService.getPackages();
+		m.addAttribute("data", allPackages);
+		return "AdminDisplayPackages";
+	}
+	
+	@RequestMapping("/displayUsers")
+	public String displayUsers(ModelMap m) {
+		List<Customer> users = cc.getUsers();
+		m.addAttribute("userData", users);
+		return "AdminDisplayUsers";
 	}
 }
 

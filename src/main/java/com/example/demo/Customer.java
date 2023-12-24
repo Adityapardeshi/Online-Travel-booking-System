@@ -15,7 +15,14 @@ public class Customer
 	private String name;
 	private String email;
 	private String pass;
-	private String cpass;
+	private String phone;
+	
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 	private String gender;
 	public int getId() {
 		return id;
@@ -40,12 +47,6 @@ public class Customer
 	}
 	public void setPass(String pass) {
 		this.pass = pass;
-	}
-	public String getCpass() {
-		return cpass;
-	}
-	public void setCpass(String cpass) {
-		this.cpass = cpass;
 	}
 	public String getGender() {
 		return gender;

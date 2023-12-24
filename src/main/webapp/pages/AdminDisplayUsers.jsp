@@ -1,5 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
+  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,11 +12,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/sidebars.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Admin Dashboard</title>
+    <title>Document</title>
 </head>
 <body>
-
-    <!--side nav bar-->
+      <!--side nav bar-->
     <div class="row">
     <div class="col-3">
     <div class="flex-shrink-0 p-3 text-white shadow-lg" style="width: 280px; height: 100vh;">
@@ -70,31 +72,41 @@
         </ul>
       </div>
     </div>
-   
 
-    <!--main content-->
-    <div class="col-9">
-    <div class="row mt-5">
-        <div class="col-4">
-            <div class="card shadow-lg bg-danger text-white" style="width: 16rem;">
-                <div class="card-header fw-bold">Total Users</div>
-                <div class="card-body">3030</div>
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="card shadow-lg bg-primary text-white" style="width: 16rem;">
-                <div class="card-header fw-bold">Total Packages</div>
-                <div class="card-body">18</div>
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="card shadow-lg bg-dark text-white" style="width: 16rem;">
-                <div class="card-header fw-bold">Active Bookings</div>
-                <div class="card-body">478</div>
-            </div>
+           <!--table-->
+        <div class="col-8 mt-5">
+        <table class="table table-dark">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Password</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Action</th>
+              
+              </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${userData}" var="e">
+              <tr>
+                <td>${e.id}</td>
+				<td>${e.name}</td>
+				<td>${e.email}</td>
+				<td>${e.pass}</td>
+				<td>${e.gender}</td>
+				<td>
+					<a href = "">Edit</a>
+					<a href = "">Delete</a>
+				</td>
+              </tr>
+              </c:forEach>
+            </tbody>
+          </table>
+
         </div>
     </div>
-    </div>
-</div>
+
+       
 </body>
 </html>

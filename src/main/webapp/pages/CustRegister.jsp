@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Register</title>
 </head>
 
 <style>@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
@@ -22,7 +22,7 @@ body{
   padding: 10px;
   background: linear-gradient(135deg, #71b7e6, #9b59b6);
 }
-.container{
+.container1{
   max-width: 700px;
   width: 100%;
   background-color: #fff;
@@ -30,12 +30,12 @@ body{
   border-radius: 5px;
   box-shadow: 0 5px 10px rgba(0,0,0,0.15);
 }
-.container .title{
+.container1 .title{
   font-size: 25px;
   font-weight: 500;
   position: relative;
 }
-.container .title::before{
+.container1 .title::before{
   content: "";
   position: absolute;
   left: 0;
@@ -130,7 +130,7 @@ form .input-box span.details{
   background: linear-gradient(-135deg, #71b7e6, #9b59b6);
   }
  @media(max-width: 584px){
- .container{
+ .container1{
   max-width: 100%;
 }
 form .user-details .input-box{
@@ -149,7 +149,7 @@ form .user-details .input-box{
   }
   }
   @media(max-width: 459px){
-  .container .content .category{
+  .container1 .content .category{
     flex-direction: column;
   }
 }</style>
@@ -164,10 +164,12 @@ form .user-details .input-box{
     <meta charset="UTF-8">
     <title> Register Yourself </title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
    </head>
 <body>
-  <div class="container">
+  <div class="container1">
     <div class="title">Registration</div>
     <div class="content">
       <form action="savedata" method="post">
@@ -182,22 +184,22 @@ form .user-details .input-box{
           </div>
           <div class="input-box">
             <span class="details">Phone Number</span>
-            <input type="text" name="pass" placeholder="Enter your number" required>
+            <input type="text" name="phone" placeholder="Enter your number" required>
           </div>
           <div class="input-box">
             <span class="details">Password</span>
-            <input type="text" name="cpass" placeholder="Enter your password" required>
+            <input type="text" name="pass" placeholder="Enter your password" required>
           </div>
           <div class="input-box">
             <span class="details">Confirm Password</span>
-            <input type="text" placeholder="Confirm your password" required>
+            <input type="text" name="cpass" placeholder="Confirm your password" required>
           </div>
           
         </div>
         <div class="gender-details">
-          <input type="radio" name="gender" id="dot-1">
-          <input type="radio" name="gender" id="dot-2">
-          <input type="radio" name="gender" id="dot-3">
+          <input type="radio" value="male" name="gender" id="dot-1">
+          <input type="radio" value="female" name="gender" id="dot-2">
+          <input type="radio" value="na" name="gender" id="dot-3">
           <span class="gender-title">Gender</span>
           <div class="category">
             <label for="dot-1">
@@ -217,6 +219,7 @@ form .user-details .input-box{
         <div class="button">
           <input type="submit" value="Register">
         </div>
+        <a href="/login" class="h6 mt-2 d-flex align-items-center justify-content-center">Already Registerd? Login Here</a>
       </form>
     </div>
   </div>

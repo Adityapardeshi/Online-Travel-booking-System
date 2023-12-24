@@ -8,6 +8,8 @@
       <meta charset="utf-8">
       <title>Login</title>
       <link rel="stylesheet" href="/css/adminLogin.css">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
    </head>
    <body>
@@ -31,7 +33,8 @@
                   <div class="field btn">
                      <div class="btn-layer"></div>
                      <input type="submit" value="Login">
-                  </div>  
+                  </div>
+                  <a href="/adminreg" class="h6 mt-2 d-flex align-items-center justify-content-center">Create new Account</a>
             </div>
          </div>
       </div>

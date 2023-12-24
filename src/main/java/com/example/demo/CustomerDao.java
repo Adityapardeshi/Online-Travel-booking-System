@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,11 @@ public class CustomerDao implements CustomerService
 	{
 		
 		return cr.findByEmailAndPass(email, pass);
+	}
+
+	@Override
+	public List<Customer> getUsers() {
+		return cr.findAll();
 	}
 
 }

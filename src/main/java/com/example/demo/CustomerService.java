@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.util.List;
+
 public interface CustomerService 
 {
 	
@@ -7,5 +9,5 @@ public interface CustomerService
 
 	Customer checkcred(String email,String pass);
 	
-
+	List<Customer> getUsers();
 }
