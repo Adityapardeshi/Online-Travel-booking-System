@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+  <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
+  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,13 +9,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/sidebars.css" rel="stylesheet">
+     <link href="/css/sidebars.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Admin Dashboard</title>
+    <title>Create</title>
 </head>
 <body>
 
-    <!--side nav bar-->
+<!--side nav bar-->
     <div class="row">
     <div class="col-3">
     <div class="flex-shrink-0 p-3 text-white shadow-lg" style="width: 280px; height: 100vh;">
@@ -39,7 +41,6 @@
             <div class="collapse" id="dashboard-collapse">
               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                 <li><a href="./create_package" class="link-dark rounded">Package</a></li>
-                <li><a href="./create_hotel" class="link-dark rounded">Hotel</a></li>
               </ul>
             </div>
           </li>
@@ -73,29 +74,45 @@
     </div>
    
 
-    <!--main content-->
-    <div class="col-9">
-    <div class="row mt-5">
-        <div class="col-4">
-            <div class="card shadow-lg bg-danger text-white" style="width: 16rem;">
-                <div class="card-header fw-bold">Total Users</div>
-                <div class="card-body">3030</div>
-            </div>
+	<div class="col-8">
+    <h1 class="text-center mt-3">Create new Package</h1>
+
+    <div class="container d-flex align-items-center justify-content-center mt-5">
+        <div class="card d-flex align-items-center justify-content-center shadow-lg" style="width: 45rem;">
+    <form style="width: 65%;" class="my-3" method="post" action="/updatePackage">
+        <div class="mb-3">
+          <label for="id" class="form-label">Id</label>
+          <input type="text" name="id" class="form-control" id="id" value="${data.id}" readonly>
         </div>
-        <div class="col-4">
-            <div class="card shadow-lg bg-primary text-white" style="width: 16rem;">
-                <div class="card-header fw-bold">Total Packages</div>
-                <div class="card-body">18</div>
-            </div>
+        <div class="mb-3">
+          <label for="place" class="form-label">Place</label>
+          <input type="text" name="place" class="form-control" id="place" value="${data.place}" required>
         </div>
-        <div class="col-4">
-            <div class="card shadow-lg bg-dark text-white" style="width: 16rem;">
-                <div class="card-header fw-bold">Active Bookings</div>
-                <div class="card-body">478</div>
-            </div>
+        <div class="mb-3">
+          <label for="nights" class="form-label">Total Nights</label>
+          <input type="number" name="nights" class="form-control" id="nights" value="${data.nights}" required>
         </div>
+        <div class="mb-3">
+            <label for="hotel" class="form-label">Hotel Name</label>
+            <select name="hotel" name="hotel" class="form-select" id="hotel" value="${data.hotel}" required>
+                <option value="The Taj Palace">The Taj Palace</option>
+                <option value="Rambagh Palace">Rambagh Palace</option>
+                <option value="SaffronStays">SaffronStays</option>
+                <option value="Crosswinds">Crosswinds</option>
+              </select>
+          </div>
+          <div class="mb-3">
+            <label for="Activities" class="form-label">Activities</label>
+            <input type="text" name="activities" class="form-control" id="Activities" value="${data.activities}" required>
+          </div>
+          <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" name="price" class="form-control" id="price" value="${data.price}" required>
+          </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
     </div>
-    </div>
+</div>
 </div>
 </body>
 </html>

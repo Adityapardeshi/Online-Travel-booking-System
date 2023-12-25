@@ -38,4 +38,15 @@ public class AdminDao implements AdminService {
 		return packRepo.findAll();
 	}
 
+	@Override
+	public void deletePackages(int id) {
+		packRepo.deleteById(id);
+		
+	}
+
+	@Override
+	public Packages getSinglePackage(int id) {
+		return packRepo.getById(id);
+	}
+
 }

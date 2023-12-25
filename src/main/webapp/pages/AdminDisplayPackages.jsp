@@ -97,8 +97,8 @@
 				<td>${e.nights}</td>
 				<td>${e.price}</td>
 				<td>
-					<a href = "">Edit</a>
-					<a href = "">Delete</a>
+					<a href = "/editPackage/${e.id}">Edit</a>
+					<a href = "/delPackage/${e.id}">Delete</a>
 				</td>
               </tr>
               </c:forEach>

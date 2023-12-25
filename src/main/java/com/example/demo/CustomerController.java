@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -137,6 +139,34 @@ public class CustomerController
 		List<Customer> users = cc.getUsers();
 		m.addAttribute("userData", users);
 		return "AdminDisplayUsers";
+	}
+	
+	@GetMapping("/delPackage/{id}")
+	public String delPackage(@PathVariable int id) {
+		adService.deletePackages(id);
+		return "redirect:/displayPackage";
+	}
+	
+	@GetMapping("/editPackage/{id}")
+	public String editPackage(@PathVariable int id, ModelMap m) {
+		Packages singleData = adService.getSinglePackage(id);
+		m.addAttribute("data", singleData);
+		return "AdminEditPackages";
+	}
+	
+	@PostMapping("/updatePackage")
+	public String updatePackage(@ModelAttribute("data") Packages data) {
+		
+		Packages p = new Packages();
+		p.setId(data.getId());
+		p.setPlace(data.getPlace());
+		p.setActivities(data.getActivities());
+		p.setHotel(data.getHotel());
+		p.setNights(data.getNights());
+		p.setPrice(data.getPrice());
+		
+		adService.storePackage(p);
+		return "redirect:/displayPackage";
 	}
 }
 

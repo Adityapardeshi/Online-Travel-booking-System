@@ -11,4 +11,7 @@ public interface AdminService {
 	
 	List<Packages> getPackages();
 	
+	void deletePackages(int id);
+	
+	Packages getSinglePackage(int id);
 }
