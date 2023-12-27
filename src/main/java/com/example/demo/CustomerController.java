@@ -168,6 +168,34 @@ public class CustomerController
 		adService.storePackage(p);
 		return "redirect:/displayPackage";
 	}
+	
+	
+	@GetMapping("/delUser/{id}")
+	public String delUser(@PathVariable int id) {
+		cc.deleteUser(id);
+		return "redirect:/displayUsers";
+	}
+	
+	@GetMapping("/editUser/{id}")
+	public String editUser(@PathVariable int id, ModelMap m) {
+		Customer singleData = cc.getSingleCust(id);
+		m.addAttribute("data", singleData);
+		return "AdminEditUser";
+	}
+	
+	@GetMapping("/updateUser")
+	public String updateUser(@ModelAttribute("user") Customer user) {
+		Customer cust = new Customer();
+		cust.setId(user.getId());
+		cust.setEmail(user.getEmail());
+		cust.setGender(user.getGender());
+		cust.setName(user.getName());
+		cust.setPass(user.getPass());
+		cust.setPhone(user.getPhone());
+		
+		cc.register(cust);
+		return "redirect:/displayUsers";
+	}
 }
 
 

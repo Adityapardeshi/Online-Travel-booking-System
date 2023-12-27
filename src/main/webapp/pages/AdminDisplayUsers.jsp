@@ -12,7 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/sidebars.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Document</title>
+    <title>All Users</title>
 </head>
 <body>
       <!--side nav bar-->
@@ -93,11 +93,11 @@
                 <td>${e.id}</td>
 				<td>${e.name}</td>
 				<td>${e.email}</td>
-				<td>${e.pass}</td>
-				<td>${e.gender}</td>
+				<td class="hidetext">${e.pass}</td>
+				<td >${e.gender}</td>
 				<td>
-					<a href = "">Edit</a>
-					<a href = "">Delete</a>
+					<a href = "/editUser/${e.id}">Edit</a>
+					<a href = "/delUser/${e.id}">Delete</a>
 				</td>
               </tr>
               </c:forEach>

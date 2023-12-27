@@ -17,6 +17,8 @@ body {
     overflow-y: hidden;
   }
   
+  .hidetext { -webkit-text-security: disc; /* Default */ }
+  
   .b-example-divider {
     flex-shrink: 0;
     width: 1.5rem;

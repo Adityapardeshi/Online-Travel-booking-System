@@ -75,7 +75,7 @@
    
 
 	<div class="col-8">
-    <h1 class="text-center mt-3">Create new Package</h1>
+    <h1 class="text-center mt-3">Edit Package</h1>
 
     <div class="container d-flex align-items-center justify-content-center mt-5">
         <div class="card d-flex align-items-center justify-content-center shadow-lg" style="width: 45rem;">
@@ -109,7 +109,7 @@
             <label for="price" class="form-label">Price</label>
             <input type="number" name="price" class="form-control" id="price" value="${data.price}" required>
           </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
       </form>
     </div>
 </div>

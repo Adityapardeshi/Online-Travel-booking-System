@@ -32,4 +32,14 @@ public class CustomerDao implements CustomerService
 		return cr.findAll();
 	}
 
+	@Override
+	public void deleteUser(int id) {
+		cr.deleteById(id);		
+	}
+
+	@Override
+	public Customer getSingleCust(int id) {
+		return cr.getById(id);
+	}
+
 }

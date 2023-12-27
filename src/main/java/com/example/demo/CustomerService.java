@@ -10,4 +10,8 @@ public interface CustomerService
 	Customer checkcred(String email,String pass);
 	
 	List<Customer> getUsers();
+	
+	void deleteUser(int id);
+	
+	Customer getSingleCust(int id);
 }
