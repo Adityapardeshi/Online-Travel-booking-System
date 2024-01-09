@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+  <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
+  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
 body {
     min-height: 100vh;
@@ -178,24 +180,27 @@ body {
         <div class="h2">Top Destinations</div>
 
       <div class="row">
+
+		<c:forEach items="${data}" var="e">
         <div class="col-4">
-        <div class="card" style="width: 18rem;">
+        <div class="card mb-3" style="width: 18rem;">
             <img src="./img/goa.jpeg" class="card-img-top" alt="...">
             <div class="card-body">
-            <h5 class="card-title"><b>Goa</b></h5>
+            <h5 class="card-title"><b>${e.place}</b></h5>
             <p class="card-text">Immerse yourself in the laid-back atmosphere as you stroll along the palm-fringed beaches like Baga, Calangute, and Anjuna, where the rhythmic waves provide the perfect soundtrack to your escape.</p>
             <div class="row">
               <div class="col-6">
                   <a href="#" class="btn btn-danger" style="font-size:small;">View Packages</a>
               </div>
               <div class="col-6 d-flex align-items-center justify-content-center">
-                <p class="text-danger" style="font-size: 15px;">Starting from &#x20B9;3200</p>
+                <p class="text-danger fw-bold" style="font-size: 15px;">&#x20B9;${e.price}</p>
               </div>
             </div>
             </div>
         </div>
     </div>
-    <div class="col-4">
+</c:forEach>
+    <!--<div class="col-4">
         <div class="card" style="width: 18rem;">
             <img src="./img/manali.jpeg" class="card-img-top" alt="...">
             <div class="card-body">
@@ -228,7 +233,7 @@ body {
             </div>
             </div>
         </div>
-    </div>
+    </div>--->
     </div>
     </div>
 

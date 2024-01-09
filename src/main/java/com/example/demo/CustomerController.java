@@ -65,8 +65,10 @@ public class CustomerController
 	
 	
 	@RequestMapping("/dash")
-	public String dash()
+	public String dash(ModelMap m)
 	{
+		List<Packages> allPackages = adService.getPackages();
+		m.addAttribute("data", allPackages);
 		return "CustDashboard";
 	}
 	

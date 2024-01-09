@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +16,31 @@ public class Packages {
 	int price;
 	String activities;
 	String hotel;
+	@Column(columnDefinition="TEXT")
+	String description;
+	byte[] thumbnail;
+	byte[] images;
 	
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public byte[] getThumbnail() {
+		return thumbnail;
+	}
+	public void setThumbnail(byte[] thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+
+
+	public byte[] getImages() {
+		return images;
+	}
+	public void setImages(byte[] images) {
+		this.images = images;
+	}
 	public int getId() {
 		return id;
 	}

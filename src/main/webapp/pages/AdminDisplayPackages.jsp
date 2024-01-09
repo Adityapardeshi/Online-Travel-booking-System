@@ -81,6 +81,7 @@
                 <th scope="col">Id</th>
                 <th scope="col">Place</th>
                 <th scope="col">Hotel</th>
+                <th scope="col">Description</th>
                 <th scope="col">Activities</th>
                 <th scope="col">Nights</th>
                 <th scope="col">Price</th>
@@ -93,12 +94,13 @@
                 <td>${e.id}</td>
 				<td>${e.place}</td>
 				<td>${e.hotel}</td>
+				<td><button id="showbtn" class="bg-none text-success btn" onclick="displayText()">Show</button><span id="desc" style="display:none">${e.description}</span></td>
 				<td>${e.activities}</td>
 				<td>${e.nights}</td>
-				<td>${e.price}</td>
+				<td>&#8377;${e.price}</td>
 				<td>
-					<a href = "/editPackage/${e.id}">Edit</a>
-					<a href = "/delPackage/${e.id}">Delete</a>
+					<a class="text-decoration-none" href = "/editPackage/${e.id}">Edit</a>
+					<a class="text-danger text-decoration-none" href = "/delPackage/${e.id}">Delete</a>
 				</td>
               </tr>
               </c:forEach>
@@ -108,6 +110,13 @@
         </div>
     </div>
 
-       
+       <script>
+       function displayText() {
+    	   var text = document.getElementById("desc");
+    	   var btn = document.getElementById("showbtn");
+    	   text.style.display = "block";
+    	   btn.style.display = "none";
+    	 }
+       </script>
 </body>
 </html>

@@ -76,7 +76,7 @@
     <h1 class="text-center mt-3">Create new Package</h1>
 
     <div class="container d-flex align-items-center justify-content-center mt-5">
-        <div class="card d-flex align-items-center justify-content-center shadow-lg" style="width: 45rem;">
+        <div class="card bg-dark text-white d-flex align-items-center justify-content-center shadow-lg" style="width: 45rem;">
     <form style="width: 65%;" class="my-3" method="post" action="/add_package">
         <div class="mb-3">
           <label for="place" class="form-label">Place</label>
@@ -102,6 +102,18 @@
           <div class="mb-3">
             <label for="price" class="form-label">Price</label>
             <input type="number" name="price" class="form-control" id="price">
+          </div>
+		<div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <input type="text" name="description" class="form-control" id="description" maxlength="1000">
+          </div>
+		<div class="mb-3">
+            <label for="thumbnail" class="form-label">Thumbnail (img)</label>
+            <input type="file" name="thumbnail" class="form-control" id="thumbnail" accept="image/*">
+          </div>
+		<div class="mb-3">
+            <label for="images" class="form-label">All images</label>
+            <input type="file" name="images" class="form-control" id="images" accept="image/*">
           </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
