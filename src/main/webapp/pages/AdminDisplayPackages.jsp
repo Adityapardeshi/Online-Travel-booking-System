@@ -12,7 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/sidebars.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Document</title>
+    <title>Packages</title>
 </head>
 <body>
       <!--side nav bar-->
@@ -84,6 +84,7 @@
                 <th scope="col">Description</th>
                 <th scope="col">Activities</th>
                 <th scope="col">Nights</th>
+                <th scope="col">Main Img</th>
                 <th scope="col">Price</th>
                 <th scope="col">Action</th>
               </tr>
@@ -94,9 +95,10 @@
                 <td>${e.id}</td>
 				<td>${e.place}</td>
 				<td>${e.hotel}</td>
-				<td><button id="showbtn" class="bg-none text-success btn" onclick="displayText()">Show</button><span id="desc" style="display:none">${e.description}</span></td>
+				<td><button id="showbtn" class="bg-none text-warning btn" onclick="displayText(this)">Show</button><span id="desc" style="display:none">${e.description}<button id="hidebtn" class="bg-none text-warning btn" onclick="hideText(this)">Hide</button></span></td>
 				<td>${e.activities}</td>
 				<td>${e.nights}</td>
+				<td>${e.thumbnail}</td>
 				<td>&#8377;${e.price}</td>
 				<td>
 					<a class="text-decoration-none" href = "/editPackage/${e.id}">Edit</a>
@@ -111,12 +113,26 @@
     </div>
 
        <script>
-       function displayText() {
-    	   var text = document.getElementById("desc");
-    	   var btn = document.getElementById("showbtn");
-    	   text.style.display = "block";
-    	   btn.style.display = "none";
+       function displayText(btn) {
+    	   let parent = btn.parentElement;
+    	   let d = parent.childNodes[1];
+    	   
+    	   d.style.display = "block";
+    	   //var text = document.getElementById("desc");
+    	   //var btn = document.getElementById("showbtn"););
+    	   if(btn.style.display != "none") btn.style.display = "none";
+    	   else btn.style.display = "block";
     	 }
+       
+       function hideText(btn){
+    	   let parent = btn.parentElement;
+    	   parent.style.display = "none";
+    	   
+    	   let td = parent.parentElement;
+    	   let showbtn = td.childNodes[0];
+    	   console.log(showbtn);
+    	   showbtn.style.display = "block";
+       }
        </script>
 </body>
 </html>

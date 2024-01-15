@@ -38,7 +38,7 @@
             </button>
             <div class="collapse" id="dashboard-collapse">
               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li><a href="./create_package" class="link-dark rounded">Package</a></li>
+                <li><a href="/create_package" class="link-dark rounded">Package</a></li>
               </ul>
             </div>
           </li>
@@ -77,7 +77,7 @@
 
     <div class="container d-flex align-items-center justify-content-center mt-5">
         <div class="card bg-dark text-white d-flex align-items-center justify-content-center shadow-lg" style="width: 45rem;">
-    <form style="width: 65%;" class="my-3" method="post" action="/add_package">
+    <form style="width: 65%;" class="my-3" method="post" action="/add_package" enctype= "multipart/form-data">
         <div class="mb-3">
           <label for="place" class="form-label">Place</label>
           <input type="text" name="place" class="form-control" id="place">
@@ -97,23 +97,24 @@
           </div>
           <div class="mb-3">
             <label for="Activities" class="form-label">Activities</label>
-            <input type="text" name="activities" class="form-control" id="Activities">
+            <input type="text" name="activities" class="form-control" id="Activities" required>
           </div>
           <div class="mb-3">
             <label for="price" class="form-label">Price</label>
-            <input type="number" name="price" class="form-control" id="price">
+            <input type="number" name="price" class="form-control" id="price" required>
           </div>
 		<div class="mb-3">
             <label for="description" class="form-label">Description</label>
-            <input type="text" name="description" class="form-control" id="description" maxlength="1000">
+            <input type="text" name="description" class="form-control" id="description" maxlength="1000" required>
           </div>
 		<div class="mb-3">
             <label for="thumbnail" class="form-label">Thumbnail (img)</label>
-            <input type="file" name="thumbnail" class="form-control" id="thumbnail" accept="image/*">
+           <input type="file" name="thumbnail2" class="form-control" id="thumbnail">
+   
           </div>
 		<div class="mb-3">
-            <label for="images" class="form-label">All images</label>
-            <input type="file" name="images" class="form-control" id="images" accept="image/*">
+            <label for="other_images" class="form-label">Other image</label>
+            <input type="file" name="other_images" class="form-control" id="other-images">
           </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>

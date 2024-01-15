@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.Transient;
 
 @Entity
 public class Packages {
@@ -18,28 +20,44 @@ public class Packages {
 	String hotel;
 	@Column(columnDefinition="TEXT")
 	String description;
-	byte[] thumbnail;
-	byte[] images;
 	
+	@Column(nullable = true, columnDefinition="TEXT")
+	String thumbnail;
+	
+	@Column(nullable = true, columnDefinition="TEXT")
+	String other_image;
+	
+	@Transient
+	public String getthumbnailPath() {
+		if(thumbnail == null) return null;
+		return "thumbnail/"+id+"/"+thumbnail;
+	}
+	
+	@Transient
+	public String getimagesPath() {
+		if(other_image == null) return null;
+		return "other_image/"+id+"/"+other_image;
+	}
+	
+	public String getOther_image() {
+		return other_image;
+	}
+
+	public void setOther_image(String other_image) {
+		this.other_image = other_image;
+	}
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
 	public String getDescription() {
 		return description;
 	}
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	public byte[] getThumbnail() {
-		return thumbnail;
-	}
-	public void setThumbnail(byte[] thumbnail) {
-		this.thumbnail = thumbnail;
-	}
-
-
-	public byte[] getImages() {
-		return images;
-	}
-	public void setImages(byte[] images) {
-		this.images = images;
 	}
 	public int getId() {
 		return id;

@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,8 +27,8 @@ public class AdminDao implements AdminService {
 	}
 
 	@Override
-	public void storePackage(Packages p) {
-		packRepo.save(p);
+	public Packages storePackage(Packages p) {
+		return this.packRepo.save(p);
 		
 	}
 
@@ -46,5 +47,8 @@ public class AdminDao implements AdminService {
 	public Packages getSinglePackage(int id) {
 		return packRepo.getById(id);
 	}
+
+	
+
 
 }

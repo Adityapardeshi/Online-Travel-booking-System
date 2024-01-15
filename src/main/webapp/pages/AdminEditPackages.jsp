@@ -3,7 +3,7 @@
   <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="<http://www.thymeleaf.org>">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -40,7 +40,7 @@
             </button>
             <div class="collapse" id="dashboard-collapse">
               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li><a href="./create_package" class="link-dark rounded">Package</a></li>
+                <li><a href="/create_package" class="link-dark rounded">Package</a></li>
               </ul>
             </div>
           </li>
@@ -79,7 +79,7 @@
 
     <div class="container d-flex align-items-center justify-content-center mt-5">
         <div class="card d-flex align-items-center justify-content-center shadow-lg" style="width: 45rem;">
-    <form style="width: 65%;" class="my-3" method="post" action="/updatePackage">
+    <form style="width: 65%;" class="my-3" method="post" action="/updatePackage" enctype= "multipart/form-data">
         <div class="mb-3">
           <label for="id" class="form-label">Id</label>
           <input type="text" name="id" class="form-control" id="id" value="${data.id}" readonly>
@@ -109,9 +109,27 @@
             <label for="price" class="form-label">Price</label>
             <input type="number" name="price" class="form-control" id="price" value="${data.price}" required>
           </div>
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <input type="text" name="description" class="form-control" id="description" maxlength="1000" value="${data.description}" required>
+          </div>
+        
+          <div class="mb-3">
+            <label for="thumbnail2" class="form-label">Thumbnail (img)</label>&nbsp; &nbsp;&nbsp;&nbsp;
+            <label for="thumbnail" class="form-label bg-dark text-white">Selected Img - </label>
+            <input type="text" name="thumbnail" readonly value="${data.thumbnail}">
+            <input type="file" name="thumbnail2" class="form-control"  id="thumbnail" accept="image/*" >
+          </div>
+		<div class="mb-3">
+            <label for="other_images" class="form-label">Other image</label> &nbsp; &nbsp;&nbsp;&nbsp;
+            <label for="other_image" class="form-label bg-dark text-white">Selected Img - </label>
+            <input type="text" name="other_image" readonly value="${data.other_image}">
+            <input type="file" name="other_images" class="form-control" id="other-images">
+          </div>
         <button type="submit" class="btn btn-primary">Save Changes</button>
       </form>
     </div>
+
 </div>
 </div>
 </body>
