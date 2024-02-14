@@ -102,6 +102,7 @@ body {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <title></title>
 </head>
@@ -116,19 +117,20 @@ body {
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link active" aria-current="page" href="/dash">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Find Packages</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Top Picks</a>
+                <a class="nav-link" href="/userBookings">Your Bookings</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-              </li>
+
             </ul>
-          </div>
+			<div class=" d-flex">
+        	<a href="/logout" class="btn btn-outline-danger" type="submit">Logout</a>
+        	</div>
+      	</div>
         </div>
       </nav>
 
@@ -142,23 +144,23 @@ body {
         </div>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="./img/beach1.jpeg" class="d-block w-100" style="height: 550px;" alt="...">
+            <img src="./img/1.jpg" class="d-block w-100" style="height: 550px;" alt="...">
             <div class="carousel-caption d-none d-md-block">
-              <h5>First slide label</h5>
+              
               <p>Some representative placeholder content for the first slide.</p>
             </div>
           </div>
           <div class="carousel-item">
-            <img src="./img/beach.jpeg" class="d-block w-100" style="height: 550px;" alt="...">
+            <img src="./img/2.jpeg" class="d-block w-100" style="height: 550px;" alt="...">
             <div class="carousel-caption d-none d-md-block">
-              <h5>Second slide label</h5>
+              
               <p>Some representative placeholder content for the second slide.</p>
             </div>
           </div>
           <div class="carousel-item">
             <img src="./img/mountain.jpeg" class="d-block w-100" style="height: 550px;" alt="...">
             <div class="carousel-caption d-none d-md-block">
-              <h5>Second slide label</h5>
+             
               <p>Some representative placeholder content for the second slide.</p>
             </div>
           </div>
@@ -184,13 +186,21 @@ body {
 		<c:forEach items="${data}" var="e">
         <div class="col-4">
         <div class="card mb-3" style="width: 18rem;">
-            <img src="./img/goa.jpeg" class="card-img-top" alt="...">
+            <img src="/thumbnail/${e.id}/${e.thumbnail}" class="card-img-top" style="width: 200px; height: 200px;" alt="...">
             <div class="card-body">
-            <h5 class="card-title"><b>${e.place}</b></h5>
-            <p class="card-text">Immerse yourself in the laid-back atmosphere as you stroll along the palm-fringed beaches like Baga, Calangute, and Anjuna, where the rhythmic waves provide the perfect soundtrack to your escape.</p>
+            <div class="row">
+            	<div class="col-9">
+            		<h5 class="card-title"><b>${e.pack_name}</b></h5>
+            	</div>
+            	<div class="col-3">
+            		<p class="fw-semibold"><i class="fa fa-hotel"></i> ${e.nights}D</p>
+            	</div>
+            </div>
+            <h6 class="fw-semibold">${e.from_destination} &rarr; ${e.place}</h6>
+            <p class="card-text">${e.description}</p>
             <div class="row">
               <div class="col-6">
-                  <a href="#" class="btn btn-danger" style="font-size:small;">View Packages</a>
+                  <a href="/PackDetails/${e.id}" class="btn btn-danger" style="font-size:small;">Book Package</a>
               </div>
               <div class="col-6 d-flex align-items-center justify-content-center">
                 <p class="text-danger fw-bold" style="font-size: 15px;">&#x20B9;${e.price}</p>
@@ -200,40 +210,7 @@ body {
         </div>
     </div>
 </c:forEach>
-    <!--<div class="col-4">
-        <div class="card" style="width: 18rem;">
-            <img src="./img/manali.jpeg" class="card-img-top" alt="...">
-            <div class="card-body">
-            <h5 class="card-title"><b>Manali</b></h5>
-            <p class="card-text">Welcome to Manali, a picturesque haven nestled in the breathtaking Himalayan mountains. This charming retreat offers a perfect blend of natural beauty and adventure.</p>
-            <div class="row">
-              <div class="col-6">
-                  <a href="#" class="btn btn-danger" style="font-size:small;">View Packages</a>
-              </div>
-              <div class="col-6 d-flex align-items-center justify-content-center">
-                <p class="text-danger" style="font-size: 15px;">Starting from &#x20B9;3200</p>
-              </div>
-            </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-4">
-        <div class="card" style="width: 18rem;">
-            <img src="./img/kerla.jpeg" class="card-img-top" alt="...">
-            <div class="card-body">
-            <h5 class="card-title"><b>Kerla</b></h5>
-            <p class="card-text">Indulge your senses in the rich tapestry of Kerala's cultural heritage, from ancient temples to traditional dance forms. Explore the spice-scented hills of Munnar, relax on the pristine beaches of Kovalam.</p>
-            <div class="row">
-              <div class="col-6">
-                  <a href="#" class="btn btn-danger" style="font-size:small;">View Packages</a>
-              </div>
-              <div class="col-6 d-flex align-items-center justify-content-center">
-                <p class="text-danger" style="font-size: 15px;">Starting from &#x20B9;3200</p>
-              </div>
-            </div>
-            </div>
-        </div>
-    </div>--->
+
     </div>
     </div>
 

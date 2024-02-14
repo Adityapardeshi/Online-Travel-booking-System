@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
+  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,37 +30,32 @@
                 <a class="nav-link" href="#">Find Packages</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Top Picks</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                <a class="nav-link" href="/userBookings">Your Bookings</a>
               </li>
             </ul>
+            <div class=" d-flex">
+        	<a href="/logout" class="btn btn-outline-danger" type="submit">Logout</a>
+        	</div>
           </div>
         </div>
       </nav>
 
       <div class="container">
-        <h2 class="h2 mt-4 fw-bold">Kedarnath</h2>
+        <h2 class="h2 mt-4 fw-bold">${packageData.pack_name}</h2>
         <div class="row">
             <div class="col-md-10">
                 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-indicators">
                       <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                       <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
                     </div>
                     <div class="carousel-inner">
                       <div class="carousel-item active">
-                        <img src="./img/k1.jpg" class="d-block w-100" style="height: 550px;" alt="...">
+                        <img src="/thumbnail/${packageData.id}/${packageData.thumbnail}" class="d-block w-100" style="height: 550px;" alt="...">
                        
                       </div>
                       <div class="carousel-item">
-                        <img src="./img/k2.jpg" class="d-block w-100" style="height: 550px;" alt="...">
-                       
-                      </div>
-                      <div class="carousel-item">
-                        <img src="./img/k3.jpg" class="d-block w-100" style="height: 550px;" alt="...">
+                        <img src="/other_images/${packageData.id}/${packageData.other_image}" class="d-block w-100" style="height: 550px;" alt="...">
                        
                       </div>
                     </div>
@@ -74,8 +71,8 @@
             </div>
             <div class="col-md-2">
                 <div class="mx-4 mt-3">
-                    <h6 class="h6">Starting Price</h6>
-                    <p class="fw-bold fs-5">&#8377;19000</p>
+                    <h6 class="h6">Price</h6>
+                    <p class="fw-bold fs-5">&#8377;${packageData.price}</p>
 
                     <hr class="solid">
                     <div>
@@ -97,7 +94,7 @@
                     </div>
                     <hr class="solid">
                     <h6>Stay Plan</h6>
-                    <p class="fw-bold fs-5">3 Days</p>
+                    <p class="fw-bold fs-5">${packageData.nights} Days</p>
                     
                     <hr class="solid">
                     
@@ -112,32 +109,35 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
                           <div class="modal-body">
-                            <form method="post" action="">
+                            <form method="GET" action="/book/${packageData.id}">
                               <div class="mb-1">
                                 <label for="name" class="col-form-label">Full Name</label>
-                                <input type="text" class="form-control" id="name" required>
+                                <input type="text" name="name" class="form-control" value="${userData.name }" id="name" readonly required>
                               </div>
                               <div class="mb-1">
                                 <label for="email" class="col-form-label">Email</label>
-                                <input type="email" class="form-control" id="email" required>
+                                <input type="email" name="email" class="form-control" value="${userData.email}" id="email" readonly required>
                               </div>
                               <div class="mb-1">
                                 <label for="phone" class="col-form-label">Mobile no.</label>
-                                <input type="tel" class="form-control" id="phone" required>
+                                <input type="tel" name="phone" class="form-control" value="${userData.phone}" id="phone" readonly required>
                               </div>
                               <div class="mb-1">
-                                <label for="d-date" class="col-form-label">Departure Date</label>
-                                <input type="date" class="form-control" id="d-date" required>
+                                <label for="departure_date" class="col-form-label">Departure Date</label>
+                                <input type="date" class="form-control" name="departure_date" id="departure_date"  required>
                               </div>
                               <div class="mb-1">
-                                <label for="people" class="col-form-label">Total People</label>
-                                <input type="number" class="form-control" id="people" required>
+                                <label for="total_people" class="col-form-label">Total People</label>
+                                <input type="number" name="total_people" class="form-control" id="total_people" required>
                               </div>
-                            </form>
-                          </div>
+                            
+                          
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Pay 19000</button>
+                            <button type="submit" class="btn btn-primary">Pay ${packageData.price}</button>
+                            
+                          </div>
+                          </form>
                           </div>
                         </div>
                       </div>
@@ -148,7 +148,9 @@
         </div>
 
         <h4 class="h4 mt-4 fw-semibold">Overview</h4>
-        <p class="mb-4">Kedarnath is a town and Nagar Panchayat in Rudraprayag district of Uttarakhand, India, known primarily for the Kedarnath Temple. It is approximately 86 kilometres from Rudraprayag, the district headquarter. Kedarnath is the most remote of the four Chota Char Dham pilgrimage sites. Kedarnath, a popular Hindu temple, tucked away in the lap of Garhwal Himalayas, some 221 km from Rishikesh in Uttarakhand, is one of the twelve Jyotirlinga temples of Lord Shiva. Lying against the backdrop of the magnificent Kedarnath Mandir Range, at an altitude of 3580 meters, the splendid Kedarnath Dham is where the devotees come seeking the blessings of Lord Shiva. Kedarnath Mandir is said to have been constructed by Adi Shankaracharya in the 8th century A.D. The nearby flowing Mandakini River, mesmerizing vistas and splendid sceneries in the form of the snow-clad mountains, rhododendron forests, and salubrious environment make Kedarnath Dham Yatra, a tranquil and picturesque place to be at.</p>
+        <h6 class="fw-bold">Route</h6>
+        <h6 class="fw-semibold">${packageData.from_destination} &rarr; ${packageData.place }</h6>
+        <p class="mb-4">${packageData.description}</p>
 
     </div>
 

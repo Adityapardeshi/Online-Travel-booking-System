@@ -14,4 +14,13 @@ public interface CustomerService
 	void deleteUser(int id);
 	
 	Customer getSingleCust(int id);
+	
+	void book(Booking b);
+	
+	Customer getUserbyEmail(String email);
+	
+	List<Booking> getBooking(int id);
+	
+	Booking getSingleBooking(int id);
+	void cancelbook(int id);
 }

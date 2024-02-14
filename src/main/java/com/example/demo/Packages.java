@@ -13,6 +13,8 @@ public class Packages {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	int id;
+	String pack_name;
+	String from_destination;
 	String place;
 	int nights;
 	int price;
@@ -39,6 +41,24 @@ public class Packages {
 		return "other_image/"+id+"/"+other_image;
 	}
 	
+	
+	public String getPack_name() {
+		return pack_name;
+	}
+
+	public void setPack_name(String pack_name) {
+		this.pack_name = pack_name;
+	}
+
+
+	public String getFrom_destination() {
+		return from_destination;
+	}
+
+	public void setFrom_destination(String from_destination) {
+		this.from_destination = from_destination;
+	}
+
 	public String getOther_image() {
 		return other_image;
 	}

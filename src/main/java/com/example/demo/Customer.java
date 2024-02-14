@@ -1,9 +1,7 @@
 package com.example.demo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.util.List;
+import javax.persistence.*;
 
 @Entity
 public class Customer 
@@ -16,6 +14,9 @@ public class Customer
 	private String email;
 	private String pass;
 	private String phone;
+	@OneToMany
+	private List<Booking> bookings;
+	
 	
 	public String getPhone() {
 		return phone;
@@ -54,5 +55,12 @@ public class Customer
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
+	public List<Booking> getBookings() {
+		return bookings;
+	}
+	public void setBookings(List<Booking> bookings) {
+		this.bookings = bookings;
+	}
+	
 
 }

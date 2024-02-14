@@ -3,8 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+	<meta charset="utf-8">
+      <title>Login Form</title>
+      <link rel="stylesheet" href="style.css">
+       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+   
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <style>@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
 *{
@@ -189,20 +194,6 @@ form .btn input[type="submit"]{
   cursor: pointer;
 }
 </style>
-<body>
-
-<!DOCTYPE html>
-<!-- Created By CodingNepal -->
-<html lang="en" dir="ltr">
-   <head>
-      <meta charset="utf-8">
-      <title>Login Form</title>
-      <link rel="stylesheet" href="style.css">
-       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-   
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   </head>
    <body>
       <div class="wrapper">
          <div class="title-text">
@@ -227,6 +218,7 @@ form .btn input[type="submit"]{
                   </div>
                   <a href="/register" class="h6  mt-2 d-flex align-items-center justify-content-center">Create New Account
                   </a>
+                  </form>
             </div>
          </div>
       </div>

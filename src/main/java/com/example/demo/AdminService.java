@@ -15,5 +15,10 @@ public interface AdminService {
 	void deletePackages(int id);
 	
 	Packages getSinglePackage(int id);
-
+	
+	void addHotel(Hotel hotel);
+	List<Hotel> getHotels();
+	void deleteHotel(int id);
+	Hotel getSingleHotel(int id);
+	
 }

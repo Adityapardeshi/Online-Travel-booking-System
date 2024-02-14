@@ -3,8 +3,11 @@ package com.example.demo;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,9 @@ public class CustomerController
 {
 	@Autowired
 	CustomerService cc;
+	
+	@Autowired
+	AdminService adService;
 	
 	@RequestMapping("/")
 	public String one()
@@ -65,7 +71,7 @@ public class CustomerController
 	}
 	
 	@PostMapping("/CheckData")
-	public String check(@RequestParam("email") String email,@RequestParam("pass") String pass)
+	public String check(@RequestParam("email") String email,@RequestParam("pass") String pass, HttpSession s1)
 	{
 		Customer c=cc.checkcred(email,pass);
 		
@@ -73,19 +79,43 @@ public class CustomerController
 		{
 			return "redirect:/login";
 		}
+		s1.setAttribute("email", c.getEmail());
 		return "redirect:/dash";
 		
 	}
 	
-	
-	@RequestMapping("/dash")
-	public String dash(ModelMap m)
-	{
-		List<Packages> allPackages = adService.getPackages();
-		m.addAttribute("data", allPackages);
-		return "CustDashboard";
+	@RequestMapping("/logout")
+	public String logout(HttpSession s1) {
+		s1.invalidate();
+		return "redirect:/login";
 	}
 	
+	
+	@RequestMapping("/dash")
+	public String dash(ModelMap m, HttpSession s1)
+	{
+		String email = (String)s1.getAttribute("email");
+//		if(email != null) {
+			List<Packages> allPackages = adService.getPackages();
+			m.addAttribute("data", allPackages);
+			return "CustDashboard";
+//		}else return "redirect:/login";
+	}
+	
+	@GetMapping("/PackDetails/{id}")
+	public String packdetails(@PathVariable int id, ModelMap m, HttpSession s1) {
+		Packages p = adService.getSinglePackage(id);
+		m.addAttribute("packageData", p);
+		
+		String email = (String) s1.getAttribute("email");
+		Customer userData = cc.getUserbyEmail(email);
+		m.addAttribute("userData", userData);
+		return "CustPackDetails";
+	}
+	
+	
+	
+//	Admin Mappings
 	@RequestMapping("/adminLog")
 	public String adLogin() {
 		return "AdminLogin";
@@ -96,8 +126,7 @@ public class CustomerController
 		return "AdminReg";
 	}
 	
-	@Autowired
-	AdminService adService;
+	
 	
 	//Admin Registration method	
 	
@@ -111,174 +140,345 @@ public class CustomerController
 	//admin login
 	
 	@RequestMapping(value="/adminCred", method=RequestMethod.POST)
-	public String checkCred(@RequestParam("email") String email, @RequestParam("password") String password) {
+	public String checkCred(@RequestParam("email") String email, @RequestParam("password") String password, HttpSession z) {
 		Admin ad = adService.checkCreds(email, password);
 		
 		if(ad == null) {
 			return "redirect:/adminLog";
 		}
+		z.setAttribute("admin_email", ad.getEmail());
 		return "redirect:/adminHome";
 	}
 	
+	@RequestMapping("/logout_admin")
+	public String logout_admin(HttpSession z) {
+		z.invalidate();
+		return "redirect:/adminLog";
+	}
 	
 	@RequestMapping("/adminHome")
-	public String adminhome() {
-		return "AdminHome";
+	public String adminhome(HttpSession z) {
+		String admin_email = (String)z.getAttribute("admin_email");
+		if(admin_email != null) {
+			return "AdminHome";
+		}else return "redirect:/adminLog";
 	}
 	
 	@RequestMapping("/add_hotel")
-	public String add_hotel() {
-		return "add_hotel";
+	public String add_hotel(HttpSession z) {
+		String admin_email = (String)z.getAttribute("admin_email");
+		if(admin_email != null) {
+			return "add_hotel";
+		}else return "redirect:/adminLog";
 	}
 	
 	@RequestMapping("/create_package")
-	public String c_package() {
-		return "create_package";
+	public String c_package(ModelMap m, HttpSession z) {
+		String admin_email = (String)z.getAttribute("admin_email");
+		if(admin_email != null) {
+			List<Hotel> allHotels = adService.getHotels();
+			m.addAttribute("options", allHotels);
+			return "create_package";
+		}else return "redirect:/adminLog";
 	}
 	
 
 	@PostMapping("/add_package")
-	public String add_packcage(@ModelAttribute ("pack") Packages pack, @RequestParam("thumbnail2") MultipartFile file, @RequestParam("other_images") MultipartFile other_images) throws IOException {
+	public String add_packcage(@ModelAttribute ("pack") Packages pack, @RequestParam("thumbnail2") MultipartFile file, @RequestParam("other_images") MultipartFile other_images, HttpSession z) throws IOException {
+		String admin_email = (String)z.getAttribute("admin_email");
 		
-		String filename = StringUtils.cleanPath(file.getOriginalFilename());
-		pack.setThumbnail(filename);
-		
-		//other image
-		String image = StringUtils.cleanPath(other_images.getOriginalFilename());
-		pack.setOther_image(image);
-		
-		Packages saved = adService.storePackage(pack);	
-		String uploadDirThumb = "src/main/resources/static/thumbnail/"+saved.getId();
-		FileUploadUtil.saveFile(uploadDirThumb, filename, file);
-		
-		String uploadDirImage = "src/main/resources/static/other_images/"+saved.getId();
-		FileUploadUtil.saveFile(uploadDirImage, image, other_images);
-		return "redirect:/adminHome";
+		if(admin_email != null) {
+			String filename = StringUtils.cleanPath(file.getOriginalFilename());
+			pack.setThumbnail(filename);
+			
+			//other image
+			String image = StringUtils.cleanPath(other_images.getOriginalFilename());
+			pack.setOther_image(image);
+			
+			Packages saved = adService.storePackage(pack);	
+			
+			String uploadDirThumb = "src/main/resources/static/thumbnail/"+saved.getId();
+			FileUploadUtil.saveFile(uploadDirThumb, filename, file);
+			
+			String uploadDirImage = "src/main/resources/static/other_images/"+saved.getId();
+			FileUploadUtil.saveFile(uploadDirImage, image, other_images);
+			return "redirect:/adminHome";
+		}else return "redirect:/adminLog";
 
 	}
 	
 	
 	@RequestMapping("/displayPackage")
-	public String displayPackage(ModelMap m) {
+	public String displayPackage(ModelMap m, HttpSession z) {
+		String admin_email = (String)z.getAttribute("admin_email");
 		
-		List<Packages> allPackages = adService.getPackages();
-		m.addAttribute("data", allPackages);
-		return "AdminDisplayPackages";
+		if(admin_email != null) {
+			List<Packages> allPackages = adService.getPackages();
+			m.addAttribute("data", allPackages);
+			return "AdminDisplayPackages";
+		}else return "redirect:/adminLog";
 	}
 	
 	@RequestMapping("/displayUsers")
-	public String displayUsers(ModelMap m) {
-		List<Customer> users = cc.getUsers();
-		m.addAttribute("userData", users);
-		return "AdminDisplayUsers";
+	public String displayUsers(ModelMap m, HttpSession z) {
+		String admin_email = (String)z.getAttribute("admin_email");
+		
+		if(admin_email != null) {
+			List<Customer> users = cc.getUsers();
+			m.addAttribute("userData", users);
+			return "AdminDisplayUsers";
+		}else return "redirect:/adminLog";
 	}
 	
 	@GetMapping("/delPackage/{id}")
-	public String delPackage(@PathVariable int id) {
-		adService.deletePackages(id);
-		return "redirect:/displayPackage";
+	public String delPackage(@PathVariable int id, HttpSession z) {
+		String admin_email = (String)z.getAttribute("admin_email");
+		if(admin_email != null) {
+			adService.deletePackages(id);
+			return "redirect:/displayPackage";
+		}else return "redirect:/adminLog";
 	}
 	
 	@GetMapping("/editPackage/{id}")
-	public String editPackage(@PathVariable int id, ModelMap m) {
-		Packages singleData = adService.getSinglePackage(id);
-		m.addAttribute("data", singleData);
-		return "AdminEditPackages";
+	public String editPackage(@PathVariable int id, ModelMap m, HttpSession z) {
+		String admin_email = (String)z.getAttribute("admin_email");
+		
+		if(admin_email != null) {
+			Packages singleData = adService.getSinglePackage(id);
+			m.addAttribute("data", singleData);
+			List<Hotel> allHotels = adService.getHotels();
+			m.addAttribute("options", allHotels);
+			return "AdminEditPackages";
+		}else return "redirect:/adminLog";
 	}
 	
 	@PostMapping("/updatePackage")
-	public String updatePackage(@ModelAttribute("data") Packages data, @RequestParam("thumbnail2") MultipartFile file,  @RequestParam("other_images") MultipartFile other_images) throws IOException {
+	public String updatePackage(@ModelAttribute("data") Packages data, @RequestParam("thumbnail2") MultipartFile file,  @RequestParam("other_images") MultipartFile other_images, HttpSession z) throws IOException {
+		String admin_email = (String)z.getAttribute("admin_email");
+		
+		if(admin_email != null) {
+			Packages p = new Packages();
+			p.setId(data.getId());
+			p.setPack_name(data.getPack_name());
+			p.setFrom_destination(data.getFrom_destination());
+			p.setPlace(data.getPlace());
+			p.setActivities(data.getActivities());
+			p.setHotel(data.getHotel());
+			p.setNights(data.getNights());
+			p.setDescription(data.getDescription());
+			p.setPrice(data.getPrice());
+		
 			
-		Packages p = new Packages();
-		p.setId(data.getId());
-		p.setPlace(data.getPlace());
-		p.setActivities(data.getActivities());
-		p.setHotel(data.getHotel());
-		p.setNights(data.getNights());
-		p.setDescription(data.getDescription());
-		p.setPrice(data.getPrice());
+			String Thumbfilename = null;
+			String Otherfilename = null;
+			
+			// delete old thumnail
+			if(!file.isEmpty()) {
+				String pathtoDeleteThum = "src/main/resources/static/thumbnail/"+data.getId()+"/"+data.getThumbnail();
 	
-		
-		String Thumbfilename = null;
-		String Otherfilename = null;
-		
-		// delete old thumnail
-		if(!file.isEmpty()) {
-			String pathtoDeleteThum = "src/main/resources/static/thumbnail/"+data.getId()+"/"+data.getThumbnail();
-
-			  try {
-		            Files.deleteIfExists(Paths.get(pathtoDeleteThum));
-		        } catch (IOException e) {
-		            System.out.println("Error deleting file: " + e.getMessage());
-		        }
-			  
-			Thumbfilename = StringUtils.cleanPath(file.getOriginalFilename());
-			p.setThumbnail(Thumbfilename);
-		}else p.setThumbnail(data.getThumbnail());
-		
-		// delete old other image
-		
-		if(!other_images.isEmpty()) {
-			String pathtoDeleteOther = "src/main/resources/static/other_images/"+data.getId()+"/"+data.getOther_image();
-
-			  try {
-		            Files.deleteIfExists(Paths.get(pathtoDeleteOther));
-		        } catch (IOException e) {
-		            System.out.println("Error deleting file: " + e.getMessage());
-		        }
-			  
-			Otherfilename = StringUtils.cleanPath(other_images.getOriginalFilename());
-			p.setOther_image(Otherfilename);
+				  try {
+			            Files.deleteIfExists(Paths.get(pathtoDeleteThum));
+			        } catch (IOException e) {
+			            System.out.println("Error deleting file: " + e.getMessage());
+			        }
+				  
+				Thumbfilename = StringUtils.cleanPath(file.getOriginalFilename());
+				p.setThumbnail(Thumbfilename);
+			}else p.setThumbnail(data.getThumbnail());
 			
-		}else p.setOther_image(data.getOther_image());
-		
-		
-		Packages saved = adService.storePackage(p);
-		
-		//thumb save
-		if(!file.isEmpty()) {
-			String Dir = "src/main/resources/static/thumbnail/"+saved.getId();
-			FileUploadUtil.saveFile(Dir, Thumbfilename, file);
-		}
-		
-		//other image save
-		
-		if(!other_images.isEmpty()) {
-			String uploadDir = "src/main/resources/static/other_images/"+saved.getId();
-			FileUploadUtil.saveFile(uploadDir, Otherfilename, other_images);
-		}
-		
-		return "redirect:/displayPackage";
+			// delete old other image
+			
+			if(!other_images.isEmpty()) {
+				String pathtoDeleteOther = "src/main/resources/static/other_images/"+data.getId()+"/"+data.getOther_image();
+	
+				  try {
+			            Files.deleteIfExists(Paths.get(pathtoDeleteOther));
+			        } catch (IOException e) {
+			            System.out.println("Error deleting file: " + e.getMessage());
+			        }
+				  
+				Otherfilename = StringUtils.cleanPath(other_images.getOriginalFilename());
+				p.setOther_image(Otherfilename);
+				
+			}else p.setOther_image(data.getOther_image());
+			
+			
+			Packages saved = adService.storePackage(p);
+			
+			//thumb save
+			if(!file.isEmpty()) {
+				String Dir = "src/main/resources/static/thumbnail/"+saved.getId();
+				FileUploadUtil.saveFile(Dir, Thumbfilename, file);
+			}
+			
+			//other image save
+			
+			if(!other_images.isEmpty()) {
+				String uploadDir = "src/main/resources/static/other_images/"+saved.getId();
+				FileUploadUtil.saveFile(uploadDir, Otherfilename, other_images);
+			}
+			
+			return "redirect:/displayPackage";
+		}else return "redirect:/adminLog";
 	}
 	
 	
 	@GetMapping("/delUser/{id}")
-	public String delUser(@PathVariable int id) {
-		cc.deleteUser(id);
-		return "redirect:/displayUsers";
+	public String delUser(@PathVariable int id, HttpSession z) {
+		String admin_email = (String)z.getAttribute("admin_email");
+		if(admin_email != null) {
+			cc.deleteUser(id);
+			return "redirect:/displayUsers";
+		}else return "redirect:/adminLog";
 	}
 	
 	@GetMapping("/editUser/{id}")
-	public String editUser(@PathVariable int id, ModelMap m) {
-		Customer singleData = cc.getSingleCust(id);
-		m.addAttribute("data", singleData);
-		return "AdminEditUser";
+	public String editUser(@PathVariable int id, ModelMap m, HttpSession z) {
+		String admin_email = (String)z.getAttribute("admin_email");
+		
+		if(admin_email != null) {
+			Customer singleData = cc.getSingleCust(id);
+			m.addAttribute("data", singleData);
+			return "AdminEditUser";
+		}else return "redirect:/adminLog";
 	}
 	
 	@GetMapping("/updateUser")
-	public String updateUser(@ModelAttribute("user") Customer user) {
-		Customer cust = new Customer();
-		cust.setId(user.getId());
-		cust.setEmail(user.getEmail());
-		cust.setGender(user.getGender());
-		cust.setName(user.getName());
-		cust.setPass(user.getPass());
-		cust.setPhone(user.getPhone());
+	public String updateUser(@ModelAttribute("user") Customer user, HttpSession z) {
+		String admin_email = (String)z.getAttribute("admin_email");
 		
-		cc.register(cust);
-		return "redirect:/displayUsers";
+		if(admin_email != null) {
+			Customer cust = new Customer();
+			cust.setId(user.getId());
+			cust.setEmail(user.getEmail());
+			cust.setGender(user.getGender());
+			cust.setName(user.getName());
+			cust.setPass(user.getPass());
+			cust.setPhone(user.getPhone());
+			
+			cc.register(cust);
+			return "redirect:/displayUsers";
+		}else return "redirect:/adminLog";
 	}
 	
+//	Hotel mappings
+	
+	@PostMapping("/saveHotel")
+	public String savehotel(@ModelAttribute("hotel") Hotel hotel, HttpSession z) {
+		String admin_email = (String)z.getAttribute("admin_email");
+		
+		if(admin_email != null) {
+			adService.addHotel(hotel);
+			return "redirect:/adminHome";
+		}else return "redirect:/adminLog";
+	}
+	
+	@RequestMapping("/displayHotels")
+	public String showHotels(ModelMap m, HttpSession z) {
+		String admin_email = (String)z.getAttribute("admin_email");
+		
+		if(admin_email != null) {
+			List<Hotel> allHotels = adService.getHotels();
+			m.addAttribute("data", allHotels);
+			return "AdminDisplayHotels";
+		}else return "redirect:/adminLog";
+	}
+	
+	@GetMapping("/delHotel/{id}")
+	public String delHotel(@PathVariable("id") int id, HttpSession z) {
+		String admin_email = (String)z.getAttribute("admin_email");
+		if(admin_email != null) {
+			adService.deleteHotel(id);
+			return "redirect:/displayHotels";
+		}else return "redirect:/adminLog";
+	}
+	
+	@GetMapping("/editHotel/{id}")
+	public String edithotel(@PathVariable("id") int id, ModelMap m, HttpSession z) {
+		String admin_email = (String)z.getAttribute("admin_email");
+		if(admin_email != null) {
+			Hotel hotel = adService.getSingleHotel(id);
+			
+			List<Integer> options = Arrays.asList(2, 3, 4, 5, 6, 7);
+			m.addAttribute("options", options);
+			m.addAttribute("data", hotel);
+			return "AdminEditHotel";
+		}else return "redirect:/adminLog";
+	}
+	
+	@GetMapping("/updateHotel")
+	public String updatehotel(@ModelAttribute("hotel") Hotel hotel, HttpSession z) {
+		String admin_email = (String)z.getAttribute("admin_email");
+		if(admin_email != null) {
+			Hotel h = new Hotel();
+			h.setId(hotel.getId());
+			h.setAddress(hotel.getAddress());
+			h.setName(hotel.getName());
+			h.setPrice(hotel.getPrice());
+			h.setRating(hotel.getRating());
+			
+			adService.addHotel(h);
+			
+			return "redirect:/displayHotels";
+		}else return "redirect:/adminLog";
+	}
+	
+	
+	//package booking
+	
+	@GetMapping("/book/{qid}")
+	public String book(@PathVariable int qid, @ModelAttribute("booking") Booking b, HttpSession s1) {
+		
+		String e = (String)s1.getAttribute("email");
+		if(e != null) {
+			Packages pkg = adService.getSinglePackage(qid);
+			
+			String email = (String) s1.getAttribute("email");
+			Customer user = cc.getUserbyEmail(email);
+			b.setPkg_name(pkg.getPack_name());
+			b.setCust(user);
+			List<Booking> q = user.getBookings();
+			
+			
+			q.add(b);
+			cc.book(b);
+			user.setBookings(q);
+			cc.register(user);
+			
+			return "redirect:/dash";
+		}else return "redirect:/login";
+		
+		
+	}
+	
+	
+	@RequestMapping("/userBookings")  //show user's bookings
+	public String allBookings(HttpSession s1, ModelMap m) {
+		
+		String email = (String)s1.getAttribute("email");
+		if(email != null) {
+			Customer user = cc.getUserbyEmail(email);
+			
+			List<Booking> b = cc.getBooking(user.getId());
+			m.addAttribute("bookings", b);
+			return "Custbookings";
+		}else return "redirect:/login";
+		
+		
+	}
+	
+	
+	@GetMapping("/cancelBooking/{uid}")
+	public String cancelBooking(@PathVariable int uid, HttpSession s1) {
+		String email = (String) s1.getAttribute("email");
+		if(email != null) {
+			Customer user = cc.getUserbyEmail(email);
+			Booking b = cc.getSingleBooking(uid);
+			user.getBookings().remove(b);
+			cc.cancelbook(uid);
+			return "redirect:/userBookings";
+		}else return "redirect:/login";
+	}
 }
 
 

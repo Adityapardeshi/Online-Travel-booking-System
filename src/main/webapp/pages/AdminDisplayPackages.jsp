@@ -41,6 +41,7 @@
             <div class="collapse" id="dashboard-collapse">
               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                 <li><a href="./create_package" class="link-dark rounded">Package</a></li>
+                <li><a href="/add_hotel" class="link-dark rounded">Hotel</a></li>
               </ul>
             </div>
           </li>
@@ -52,6 +53,7 @@
               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                 <li><a href="/displayPackage" class="link-dark rounded">Package</a></li>
                 <li><a href="/displayUsers" class="link-dark rounded">User</a></li>
+                <li><a href="/displayHotels" class="link-dark rounded">Hotels</a></li>
               </ul>
             </div>
           </li>
@@ -62,10 +64,8 @@
             </button>
             <div class="collapse" id="account-collapse">
               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li><a href="#" class="link-dark rounded">New...</a></li>
                 <li><a href="#" class="link-dark rounded">Profile</a></li>
-                <li><a href="#" class="link-dark rounded">Settings</a></li>
-                <li><a href="#" class="link-dark rounded">Sign out</a></li>
+                <li><a href="/logout_admin" class="link-dark rounded">Sign out</a></li>
               </ul>
             </div>
           </li>
@@ -79,12 +79,13 @@
             <thead>
               <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Place</th>
+                <th scope="col">Name</th>
+                <th scope="col">From</th>
+                <th scope="col">To (Place)</th>
                 <th scope="col">Hotel</th>
                 <th scope="col">Description</th>
                 <th scope="col">Activities</th>
                 <th scope="col">Nights</th>
-                <th scope="col">Main Img</th>
                 <th scope="col">Price</th>
                 <th scope="col">Action</th>
               </tr>
@@ -93,12 +94,13 @@
             <c:forEach items="${data}" var="e">
               <tr>
                 <td>${e.id}</td>
+                <td>${e.pack_name}</td>
+                <td>${e.from_destination}</td>
 				<td>${e.place}</td>
 				<td>${e.hotel}</td>
 				<td><button id="showbtn" class="bg-none text-warning btn" onclick="displayText(this)">Show</button><span id="desc" style="display:none">${e.description}<button id="hidebtn" class="bg-none text-warning btn" onclick="hideText(this)">Hide</button></span></td>
 				<td>${e.activities}</td>
 				<td>${e.nights}</td>
-				<td>${e.thumbnail}</td>
 				<td>&#8377;${e.price}</td>
 				<td>
 					<a class="text-decoration-none" href = "/editPackage/${e.id}">Edit</a>

@@ -185,6 +185,7 @@ form .user-details .input-box{
             <div class="collapse" id="dashboard-collapse">
               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                 <li><a href="./create_package" class="link-dark rounded">Package</a></li>
+                <li><a href="/add_hotel" class="link-dark rounded">Hotel</a></li>
               </ul>
             </div>
           </li>
@@ -196,6 +197,7 @@ form .user-details .input-box{
               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                 <li><a href="/displayPackage" class="link-dark rounded">Package</a></li>
                 <li><a href="/displayUsers" class="link-dark rounded">User</a></li>
+                <li><a href="/displayHotels" class="link-dark rounded">Hotels</a></li>
               </ul>
             </div>
           </li>
@@ -205,11 +207,9 @@ form .user-details .input-box{
               Account
             </button>
             <div class="collapse" id="account-collapse">
-              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li><a href="#" class="link-dark rounded">New...</a></li>
+             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                 <li><a href="#" class="link-dark rounded">Profile</a></li>
-                <li><a href="#" class="link-dark rounded">Settings</a></li>
-                <li><a href="#" class="link-dark rounded">Sign out</a></li>
+                <li><a href="/logout_admin" class="link-dark rounded">Sign out</a></li>
               </ul>
             </div>
           </li>

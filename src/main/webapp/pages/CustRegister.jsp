@@ -221,6 +221,7 @@ form .user-details .input-box{
         </div>
         <a href="/login" class="h6 mt-2 d-flex align-items-center justify-content-center">Already Registerd? Login Here</a>
       </form>
+      
     </div>
   </div>
 

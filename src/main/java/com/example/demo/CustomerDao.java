@@ -12,6 +12,9 @@ public class CustomerDao implements CustomerService
 {
 	@Autowired
 	CustReposit cr;
+	
+	@Autowired
+	BookingRepo bookRepo;
 
 	@Override
 	public void register(Customer c1)
@@ -40,6 +43,33 @@ public class CustomerDao implements CustomerService
 	@Override
 	public Customer getSingleCust(int id) {
 		return cr.getById(id);
+	}
+
+	@Override
+	public void book(Booking b) {
+		bookRepo.save(b);
+		
+	}
+
+	@Override
+	public Customer getUserbyEmail(String email) {
+		return cr.findByEmail(email);
+	}
+
+	@Override
+	public List<Booking> getBooking(int id) {
+		return bookRepo.getBookingById(id);
+	}
+
+	@Override
+	public void cancelbook(int id) {
+		bookRepo.deleteById(id);
+		
+	}
+
+	@Override
+	public Booking getSingleBooking(int id) {
+		return bookRepo.getById(id);
 	}
 
 }

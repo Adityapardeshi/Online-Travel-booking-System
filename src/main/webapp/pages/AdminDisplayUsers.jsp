@@ -41,6 +41,7 @@
             <div class="collapse" id="dashboard-collapse">
               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                 <li><a href="./create_package" class="link-dark rounded">Package</a></li>
+                <li><a href="/add_hotel" class="link-dark rounded">Hotel</a></li>
               </ul>
             </div>
           </li>
@@ -52,6 +53,7 @@
               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                 <li><a href="/displayPackage" class="link-dark rounded">Package</a></li>
                 <li><a href="/displayUsers" class="link-dark rounded">User</a></li>
+                <li><a href="/displayHotels" class="link-dark rounded">Hotels</a></li>
               </ul>
             </div>
           </li>
@@ -62,10 +64,8 @@
             </button>
             <div class="collapse" id="account-collapse">
               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li><a href="#" class="link-dark rounded">New...</a></li>
                 <li><a href="#" class="link-dark rounded">Profile</a></li>
-                <li><a href="#" class="link-dark rounded">Settings</a></li>
-                <li><a href="#" class="link-dark rounded">Sign out</a></li>
+                <li><a href="/logout_admin" class="link-dark rounded">Sign out</a></li>
               </ul>
             </div>
           </li>
@@ -96,8 +96,8 @@
 				<td class="hidetext">${e.pass}</td>
 				<td >${e.gender}</td>
 				<td>
-					<a href = "/editUser/${e.id}">Edit</a>
-					<a href = "/delUser/${e.id}">Delete</a>
+					<a class = "text-decoration-none" href = "/editUser/${e.id}">Edit</a>
+					<a class="text-danger text-decoration-none" href = "/delUser/${e.id}">Delete</a>
 				</td>
               </tr>
               </c:forEach>

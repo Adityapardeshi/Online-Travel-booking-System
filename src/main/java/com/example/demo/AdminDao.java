@@ -15,6 +15,9 @@ public class AdminDao implements AdminService {
 	@Autowired
 	PackageRepo packRepo;
 	
+	@Autowired
+	HotelRepo hotelRepo;
+	
 	@Override
 	public void registerAdmin(Admin a) {
 		
@@ -47,6 +50,29 @@ public class AdminDao implements AdminService {
 	public Packages getSinglePackage(int id) {
 		return packRepo.getById(id);
 	}
+
+	@Override
+	public void addHotel(Hotel hotel) {
+		hotelRepo.save(hotel);
+		
+	}
+
+	@Override
+	public List<Hotel> getHotels() {
+		return hotelRepo.findAll();
+	}
+
+	@Override
+	public void deleteHotel(int id) {
+		hotelRepo.deleteById(id);
+		
+	}
+
+	@Override
+	public Hotel getSingleHotel(int id) {
+		return hotelRepo.getById(id);
+	}
+
 
 	
 
