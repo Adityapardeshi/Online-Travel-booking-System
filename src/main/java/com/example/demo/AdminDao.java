@@ -18,6 +18,9 @@ public class AdminDao implements AdminService {
 	@Autowired
 	HotelRepo hotelRepo;
 	
+	@Autowired
+	BookingRepo bookRepo;
+	
 	@Override
 	public void registerAdmin(Admin a) {
 		
@@ -71,6 +74,11 @@ public class AdminDao implements AdminService {
 	@Override
 	public Hotel getSingleHotel(int id) {
 		return hotelRepo.getById(id);
+	}
+
+	@Override
+	public List<Booking> getBookings() {
+		return bookRepo.findAll();
 	}
 
 

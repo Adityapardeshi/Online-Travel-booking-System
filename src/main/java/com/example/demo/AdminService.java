@@ -21,4 +21,5 @@ public interface AdminService {
 	void deleteHotel(int id);
 	Hotel getSingleHotel(int id);
 	
+	List<Booking> getBookings();
 }

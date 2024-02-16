@@ -424,6 +424,19 @@ public class CustomerController
 	}
 	
 	
+	@RequestMapping("/allbookings")
+	public String displayBookings(HttpSession z, ModelMap m) {
+		String admin_email = (String)z.getAttribute("admin_email");
+		
+		if(admin_email != null) {
+			List<Booking> allBookings = adService.getBookings();
+			m.addAttribute("bookings", allBookings);
+			
+			return "AdminDisplayBookings";
+		}else return "redirect:/adminLog";
+	}
+	
+	
 	//package booking
 	
 	@GetMapping("/book/{qid}")
@@ -478,6 +491,19 @@ public class CustomerController
 			cc.cancelbook(uid);
 			return "redirect:/userBookings";
 		}else return "redirect:/login";
+	}
+	
+	
+	@GetMapping("AdmincancelBooking/{bid}/{uid}")
+	public String cancel(@PathVariable int bid, @PathVariable int uid ,HttpSession z) {
+		String admin_email = (String)z.getAttribute("admin_email");
+		if(admin_email != null) {
+			Customer user = cc.getSingleCust(uid);
+			Booking b = cc.getSingleBooking(bid);
+			user.getBookings().remove(b);
+			cc.cancelbook(bid);
+			return "redirect:/allbookings";
+		}else return "redirect:/adminLog";
 	}
 }
 

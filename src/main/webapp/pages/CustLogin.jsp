@@ -218,6 +218,7 @@ form .btn input[type="submit"]{
                   </div>
                   <a href="/register" class="h6  mt-2 d-flex align-items-center justify-content-center">Create New Account
                   </a>
+                  <a href="adminLog" class="h6  mt-2 d-flex align-items-center justify-content-center">Admin Portal</a>
                   </form>
             </div>
          </div>
@@ -242,7 +243,4 @@ form .btn input[type="submit"]{
          });
       </script>
    </body>
-</html>
-
-</body>
 </html>

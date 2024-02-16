@@ -198,6 +198,7 @@ form .user-details .input-box{
                 <li><a href="/displayPackage" class="link-dark rounded">Package</a></li>
                 <li><a href="/displayUsers" class="link-dark rounded">User</a></li>
                 <li><a href="/displayHotels" class="link-dark rounded">Hotels</a></li>
+                <li><a href="allbookings" class="link-dark rounded">Bookings</a></li>
               </ul>
             </div>
           </li>
