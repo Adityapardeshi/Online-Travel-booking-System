@@ -12,7 +12,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="./pack_desc.css" rel="stylsheet">
-    <title></title>
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <title>${packageData.pack_name}</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -27,7 +29,7 @@
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Find Packages</a>
+                <a class="nav-link" href="/findPackage">Find Packages</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/userBookings">Your Bookings</a>
@@ -72,7 +74,7 @@
             <div class="col-md-2">
                 <div class="mx-4 mt-3">
                     <h6 class="h6">Price</h6>
-                    <p class="fw-bold fs-5">&#8377;${packageData.price}</p>
+                    <p class="fw-bold fs-5" >&#8377;<span id="price">${packageData.price}</span></p>
 
                     <hr class="solid">
                     <div>
@@ -134,15 +136,17 @@
                           
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Pay ${packageData.price}</button>
+                            <button type="submit" id="proceed" onclick="message()" class="btn btn-primary">Proceed</button>
                             
                           </div>
+                          
                           </form>
                           </div>
                         </div>
                       </div>
                     </div>
                     <!-- booking modal end -->
+                    
                 </div>
         </div>
         </div>
@@ -155,78 +159,92 @@
     </div>
 
     <section class="">
-        <!-- Footer -->
-        <footer class="bg-dark text-white text-center">
-          <!-- Grid container -->
-          <div class="container p-4">
-            <!--Grid row-->
-            <div class="row">
-              <!--Grid column-->
-              <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-                <h5 class="text-uppercase">Footer Content</h5>
-      
-                <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
-                  molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae
-                  aliquam voluptatem veniam, est atque cumque eum delectus sint!
-                </p>
-              </div>
-              <!--Grid column-->
-      
-              <!--Grid column-->
-              <div class="col-lg-3 col-md-6 mb-4 mb-md-0 ">
-                <h5 class="text-uppercase">Links</h5>
-      
-                <ul class="list-unstyled mb-0 ">
-                  <li>
-                    <a href="#!" class="text-white">Link 1</a>
-                  </li>
-                  <li>
-                    <a href="#!" class="text-white">Link 2</a>
-                  </li>
-                  <li>
-                    <a href="#!" class="text-white">Link 3</a>
-                  </li>
-                  <li>
-                    <a href="#!" class="text-white">Link 4</a>
-                  </li>
-                </ul>
-              </div>
-              <!--Grid column-->
-      
-              <!--Grid column-->
-              <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                <h5 class="text-uppercase mb-0">Links</h5>
-      
-                <ul class="list-unstyled ">
-                  <li>
-                    <a href="#!" class="text-white">Link 1</a>
-                  </li>
-                  <li>
-                    <a href="#!" class="text-white">Link 2</a>
-                  </li>
-                  <li>
-                    <a href="#!" class="text-white">Link 3</a>
-                  </li>
-                  <li>
-                    <a href="#!" class="text-white">Link 4</a>
-                  </li>
-                </ul>
-              </div>
-              <!--Grid column-->
+      <!-- Footer -->
+      <footer class="bg-dark text-white text-center">
+        <!-- Grid container -->
+        <div class="container p-4">
+          <!--Grid row-->
+          <div class="row">
+            <!--Grid column-->
+            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+              <h5 class="text-uppercase">TravelX</h5>
+    
+              <p>
+                Discover a seamless pilgrimage experience with our online booking system. We strive to make your spiritual journey memorable and hassle-free.
+              </p>
             </div>
-            <!--Grid row-->
+            <!--Grid column-->
+    
+            <!--Grid column-->
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0 ">
+              <h5 class="text-uppercase">Links</h5>
+    
+              <ul class="list-unstyled mb-0 ">
+                <li>
+                  <a href="/dash" class="text-white">Home</a>
+                </li>
+                <li>
+                  <a href="/userBookings" class="text-white">Your Bookings</a>
+                </li>
+                <li>
+                  <a href="/findPackage" class="text-white">Find Packages</a>
+                </li>
+              </ul>
+            </div>
+            <!--Grid column-->
+    
+            <!--Grid column-->
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+              <h5 class="text-uppercase ">Links</h5>
+    
+              <ul class="list-unstyled ">
+                <li>
+                  <a href="/dash" class="text-white">Home</a>
+                </li>
+                <li>
+                  <a href="/userBookings" class="text-white">Your Bookings</a>
+                </li>
+                <li>
+                  <a href="/findPackage" class="text-white">Find Packages</a>
+                </li>
+              </ul>
+            </div>
+            <!--Grid column-->
           </div>
-          <!-- Grid container -->
+          <!--Grid row-->
+        </div>
+        <!-- Grid container -->
+    
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+          © 2024 Copyright:
+          <a class="text-danger" href="/dash">TravelX.com</a>
+        </div>
+        <!-- Copyright -->
+      </footer>
+      <!-- Footer -->
+    </section>
       
-          <!-- Copyright -->
-          <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
-            © 2020 Copyright:
-            <a class="text-danger" href="https://mdbootstrap.com/">TravelX.com</a>
-          </div>
-          <!-- Copyright -->
-        </footer>
-        <!-- Footer -->
-      </section>
+      <script>
+      	const totalPeopleInput = document.getElementById('total_people');
+	    const inputField = document.getElementById("proceed");
+		const price =  document.getElementById("price");
+		
+	      totalPeopleInput.addEventListener('input', function() {
+	    	  var data = parseInt(totalPeopleInput.value,10);
+	    	  var q = price.innerText;
+			
+	        inputField.innerText = "Pay "+data*q;
+	      });
+	      
+	    function message(){
+	      Swal.fire({
+	    	  icon: "success",
+	    	  title: "Payment Success",
+	    	  showConfirmButton: false,
+	    	  timer: 3000
+	    	});
+	    }
+      </script>
 </body>
 </html>

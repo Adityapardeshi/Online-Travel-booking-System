@@ -10,12 +10,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Bookings</title>
+    <title>Find Packages</title>
 </head>
 
 <body style="display: flex; flex-direction: column;">
 
- <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
+	 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
           <a class="navbar-brand mx-5" href="#">TourismX</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,71 +24,77 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link " aria-current="page" href="/dash">Home</a>
+                <a class="nav-link" aria-current="page" href="/dash">Home</a>
               </li>
               <li class="nav-item">
-               <a class="nav-link" href="/findPackage">Find Packages</a>
+                <a class="nav-link active" href="/findPackage">Find Packages</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="/userBookings">Your Bookings</a>
+                <a class="nav-link" href="/userBookings">Your Bookings</a>
               </li>
+
             </ul>
-            <div class=" d-flex">
+			<div class=" d-flex">
         	<a href="/logout" class="btn btn-outline-danger" type="submit">Logout</a>
         	</div>
-          </div>
+      	</div>
         </div>
       </nav>
 
-    <div class="container mt-5 d-flex align-items-center justify-content-center">
-    <table class="table table-dark mb-5" style="width:50rem">
-        <thead>
-          <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Package name</th>
-            <th scope="col">People</th>
-            <th scope="col">Departure Date</th>
-            <th scope="col">Action</th>
-          
-          </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${bookings}" var="e" varStatus="vs">
-          <tr>
-            <td>${e.id}</td>
-            <td>${e.pkg_name}</td>
-            <td>${e.total_people}</td>
-            <td>${e.departure_date}</td>
-            <td>
-                <a class="text-danger text-decoration-none" data-bs-toggle="modal" data-bs-target="#myModal${vs.index}">Cancel</a>
-            </td>
-          </tr>
-          
-          <!-- confirm Modal -->
-		<div class="modal fade" id="myModal${vs.index}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		  <div class="modal-dialog">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h5 class="modal-title" id="exampleModalLabel">Are you Sure?</h5>
-		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-		        <a class="btn btn-danger" href="/cancelBooking/${e.id}">Cancel Booking</a>
-		      </div>
-		    </div>
-		  </div>
-		</div>
-          </c:forEach>
-        </tbody>
-      </table>
-      
-
-
-	
+<form method="post" action="/findPacks">
+    <div class="container card shadow-lg mt-5">
+    <div class="d-flex align-items-center justify-content-center mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <input type="text" placeholder="From" name="from" required>
+            </div>
+            <div class="col-md-6">
+                <input type="text" placeholder="To" name="to" required>
+            </div>
+        </div>
+        
     </div>
-    
-    <section class="mt-5" style="flex: 1">
+    <div class=" d-flex align-items-center justify-content-center mt-4 mb-5">
+        <div class="row">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-danger">Search</button>
+        </div>
+        </div>
+    </div>
+</div>
+</form>
+
+<div class="container mt-5 shadow-lg">
+    <c:forEach items="${data}" var="e">
+        <div class="col-4 p-3">
+        <div class="card mb-3" style="width: 18rem;">
+            <img src="/thumbnail/${e.id}/${e.thumbnail}" class="card-img-top" style="width: 200px; height: 200px;" alt="...">
+            <div class="card-body">
+            <div class="row">
+            	<div class="col-9">
+            		<h5 class="card-title"><b>${e.pack_name}</b></h5>
+            	</div>
+            	<div class="col-3">
+            		<p class="fw-semibold"><i class="fa fa-hotel"></i> ${e.nights}D</p>
+            	</div>
+            </div>
+            <h6 class="fw-semibold">${e.from_destination} &rarr; ${e.place}</h6>
+            <p class="card-text">${e.description}</p>
+            <div class="row">
+              <div class="col-6">
+                  <a href="/PackDetails/${e.id}" class="btn btn-danger" style="font-size:small;">Book Package</a>
+              </div>
+              <div class="col-6 d-flex align-items-center justify-content-center">
+                <p class="text-danger fw-bold" style="font-size: 15px;">&#x20B9;${e.price}</p>
+              </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</c:forEach>
+</div>
+
+<section class="mt-5" style="flex: 1">
       <!-- Footer -->
       <footer class="bg-dark text-white text-center">
         <!-- Grid container -->
@@ -154,5 +160,6 @@
       </footer>
       <!-- Footer -->
     </section>
+
 </body>
 </html>

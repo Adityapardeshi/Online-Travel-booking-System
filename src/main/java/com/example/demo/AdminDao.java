@@ -21,6 +21,9 @@ public class AdminDao implements AdminService {
 	@Autowired
 	BookingRepo bookRepo;
 	
+	@Autowired
+	CustReposit custRepo;
+	
 	@Override
 	public void registerAdmin(Admin a) {
 		
@@ -79,6 +82,27 @@ public class AdminDao implements AdminService {
 	@Override
 	public List<Booking> getBookings() {
 		return bookRepo.findAll();
+	}
+
+	@Override
+	public List<Packages> findPackages(String from, String to) {
+		return packRepo.findByPlaces(from, to);
+	}
+
+	@Override
+	public long countOfUsers() {
+		return custRepo.count();
+		
+	}
+
+	@Override
+	public long countOfPackages() {
+		return packRepo.count();
+	}
+
+	@Override
+	public long countOfBookings() {
+		return bookRepo.count();
 	}
 
 

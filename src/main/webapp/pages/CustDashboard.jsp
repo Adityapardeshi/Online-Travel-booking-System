@@ -2,6 +2,9 @@
     pageEncoding="ISO-8859-1"%>
   <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
 <style>
 body {
     min-height: 100vh;
@@ -94,16 +97,15 @@ body {
   .lh-tight { line-height: 1.25; }
   
 </style>
-<body>
-<!DOCTYPE html>
-<html lang="en">
-<head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
     <title></title>
 </head>
 <body>
@@ -120,7 +122,7 @@ body {
                 <a class="nav-link active" aria-current="page" href="/dash">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Find Packages</a>
+                <a class="nav-link" href="/findPackage">Find Packages</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/userBookings">Your Bookings</a>
@@ -220,54 +222,55 @@ body {
       <div class="row">
         <div class="col-2">
         <div class="card" style="width: 10rem;">
-            <img src="./img/mauritius.jpeg" class="card-img-top" style="height: 12rem; width: 10rem;" alt="...">
+            <img src="./img/jerusalem.jpg" class="card-img-top" style="height: 12rem; width: 10rem;" alt="...">
             <div class="card-body">
-            <h5 class="card-title">Mauritius</h5>
+            <h5 class="card-title">Jerusalem</h5>
             </div>
         </div>
     </div>
     <div class="col-2">
         <div class="card" style="width: 10rem;">
-            <img src="./img/spain.jpg" class="card-img-top" style="height: 12rem; width: 10rem;" alt="...">
+            <img src="./img/lourdes.jpg" class="card-img-top" style="height: 12rem; width: 10rem;" alt="...">
             <div class="card-body">
-            <h5 class="card-title">Spain</h5>
+            <h5 class="card-title">Lourdes</h5>
             </div>
         </div>
     </div>
     <div class="col-2">
         <div class="card" style="width: 10rem;">
-            <img src="./img/australia.jpg" class="card-img-top" style="height: 12rem; width: 10rem;" alt="...">
+            <img src="./img/Santiago de Compostela.jpg" class="card-img-top" style="height: 12rem; width: 10rem;" alt="...">
             <div class="card-body">
-            <h5 class="card-title">Australia</h5>
+            <h5 class="card-title">Santiago de Compostela</h5>
             </div>
         </div>
     </div>
     <div class="col-2">
         <div class="card" style="width: 10rem;">
-            <img src="./img/thailand.jpg" class="card-img-top" style="height: 12rem; width: 10rem;" alt="...">
+            <img src="./img/mecca.jpg" class="card-img-top" style="height: 12rem; width: 10rem;" alt="...">
             <div class="card-body">
-            <h5 class="card-title">Thailand</h5>
+            <h5 class="card-title">Mecca</h5>
             </div>
         </div>
     </div>
     <div class="col-2">
         <div class="card" style="width: 10rem;">
-            <img src="./img/dubai.jpg" class="card-img-top" style="height: 12rem; width: 10rem;" alt="...">
+            <img src="./img/Varanasi.jpg" class="card-img-top" style="height: 12rem; width: 10rem;" alt="...">
             <div class="card-body">
-            <h5 class="card-title">Dubai</h5>
+            <h5 class="card-title">Varanasi</h5>
             </div>
         </div>
     </div>
     <div class="col-2">
         <div class="card" style="width: 10rem;">
-            <img src="./img/egypt.jpg" class="card-img-top" style="height: 12rem; width: 10rem;" alt="...">
+            <img src="./img/vatican.png" class="card-img-top" style="height: 12rem; width: 10rem;" alt="...">
             <div class="card-body">
-            <h5 class="card-title">Egypt</h5>
+            <h5 class="card-title">Vatican City</h5>
             </div>
         </div>
     </div>
     </div>
     </div>
+    
 
     <section class="">
       <!-- Footer -->
@@ -278,12 +281,10 @@ body {
           <div class="row">
             <!--Grid column-->
             <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-              <h5 class="text-uppercase">Footer Content</h5>
+              <h5 class="text-uppercase">TravelX</h5>
     
               <p>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
-                molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae
-                aliquam voluptatem veniam, est atque cumque eum delectus sint!
+                Discover a seamless pilgrimage experience with our online booking system. We strive to make your spiritual journey memorable and hassle-free.
               </p>
             </div>
             <!--Grid column-->
@@ -294,16 +295,13 @@ body {
     
               <ul class="list-unstyled mb-0 ">
                 <li>
-                  <a href="#!" class="text-white">Link 1</a>
+                  <a href="/dash" class="text-white">Home</a>
                 </li>
                 <li>
-                  <a href="#!" class="text-white">Link 2</a>
+                  <a href="/userBookings" class="text-white">Your Bookings</a>
                 </li>
                 <li>
-                  <a href="#!" class="text-white">Link 3</a>
-                </li>
-                <li>
-                  <a href="#!" class="text-white">Link 4</a>
+                  <a href="/findPackage" class="text-white">Find Packages</a>
                 </li>
               </ul>
             </div>
@@ -311,20 +309,17 @@ body {
     
             <!--Grid column-->
             <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-              <h5 class="text-uppercase mb-0">Links</h5>
+              <h5 class="text-uppercase ">Links</h5>
     
               <ul class="list-unstyled ">
                 <li>
-                  <a href="#!" class="text-white">Link 1</a>
+                  <a href="/dash" class="text-white">Home</a>
                 </li>
                 <li>
-                  <a href="#!" class="text-white">Link 2</a>
+                  <a href="/userBookings" class="text-white">Your Bookings</a>
                 </li>
                 <li>
-                  <a href="#!" class="text-white">Link 3</a>
-                </li>
-                <li>
-                  <a href="#!" class="text-white">Link 4</a>
+                  <a href="/findPackage" class="text-white">Find Packages</a>
                 </li>
               </ul>
             </div>
@@ -336,14 +331,40 @@ body {
     
         <!-- Copyright -->
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
-          © 2020 Copyright:
-          <a class="text-danger" href="https://mdbootstrap.com/">TravelX.com</a>
+          © 2024 Copyright:
+          <a class="text-danger" href="/dash">TravelX.com</a>
         </div>
         <!-- Copyright -->
       </footer>
       <!-- Footer -->
     </section>
 
+<script>
+function successMsg(){
+	
+	const Toast = Swal.mixin({
+		  toast: true,
+		  position: "bottom-end",
+		  showConfirmButton: false,
+		  timer: 3000,
+		  timerProgressBar: true,
+		  didOpen: (toast) => {
+		    toast.onmouseenter = Swal.stopTimer;
+		    toast.onmouseleave = Swal.resumeTimer;
+		  }
+		});
+		Toast.fire({
+		  icon: "success",
+		  title: "Signed in successfully"
+		});
+}
+</script>
+
+	<c:if test="${not empty signinSuccess}">
+        <script>
+        	successMsg();
+        </script>
+    </c:if>
     
 </body>
 </html>

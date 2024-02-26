@@ -22,4 +22,10 @@ public interface AdminService {
 	Hotel getSingleHotel(int id);
 	
 	List<Booking> getBookings();
+	
+	List<Packages> findPackages(String from, String to);
+	
+	long countOfUsers();
+	long countOfPackages();
+	long countOfBookings();
 }

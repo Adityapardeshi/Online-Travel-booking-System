@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mysql.cj.jdbc.Blob;
 
@@ -71,7 +72,7 @@ public class CustomerController
 	}
 	
 	@PostMapping("/CheckData")
-	public String check(@RequestParam("email") String email,@RequestParam("pass") String pass, HttpSession s1)
+	public String check(@RequestParam("email") String email,@RequestParam("pass") String pass, HttpSession s1, RedirectAttributes redirectAttributes)
 	{
 		Customer c=cc.checkcred(email,pass);
 		
@@ -80,6 +81,7 @@ public class CustomerController
 			return "redirect:/login";
 		}
 		s1.setAttribute("email", c.getEmail());
+		redirectAttributes.addFlashAttribute("signinSuccess", true);
 		return "redirect:/dash";
 		
 	}
@@ -157,9 +159,18 @@ public class CustomerController
 	}
 	
 	@RequestMapping("/adminHome")
-	public String adminhome(HttpSession z) {
+	public String adminhome(HttpSession z, ModelMap m) {
 		String admin_email = (String)z.getAttribute("admin_email");
 		if(admin_email != null) {
+			
+			long users = adService.countOfUsers();
+			long packs = adService.countOfPackages();
+			long bookings = adService.countOfBookings();
+			
+			m.addAttribute("users", users);
+			m.addAttribute("packs", packs);
+			m.addAttribute("bookings", bookings);
+			
 			return "AdminHome";
 		}else return "redirect:/adminLog";
 	}
@@ -178,13 +189,14 @@ public class CustomerController
 		if(admin_email != null) {
 			List<Hotel> allHotels = adService.getHotels();
 			m.addAttribute("options", allHotels);
+			
 			return "create_package";
 		}else return "redirect:/adminLog";
 	}
 	
 
 	@PostMapping("/add_package")
-	public String add_packcage(@ModelAttribute ("pack") Packages pack, @RequestParam("thumbnail2") MultipartFile file, @RequestParam("other_images") MultipartFile other_images, HttpSession z) throws IOException {
+	public String add_packcage(@ModelAttribute ("pack") Packages pack, @RequestParam("thumbnail2") MultipartFile file, @RequestParam("other_images") MultipartFile other_images, HttpSession z, RedirectAttributes redirectAttributes) throws IOException {
 		String admin_email = (String)z.getAttribute("admin_email");
 		
 		if(admin_email != null) {
@@ -202,6 +214,8 @@ public class CustomerController
 			
 			String uploadDirImage = "src/main/resources/static/other_images/"+saved.getId();
 			FileUploadUtil.saveFile(uploadDirImage, image, other_images);
+			
+			redirectAttributes.addFlashAttribute("packageAttrribute", true);
 			return "redirect:/adminHome";
 		}else return "redirect:/adminLog";
 
@@ -364,12 +378,14 @@ public class CustomerController
 //	Hotel mappings
 	
 	@PostMapping("/saveHotel")
-	public String savehotel(@ModelAttribute("hotel") Hotel hotel, HttpSession z) {
+	public String savehotel(@ModelAttribute("hotel") Hotel hotel, HttpSession z, RedirectAttributes redirectAttributes) {
 		String admin_email = (String)z.getAttribute("admin_email");
 		
 		if(admin_email != null) {
 			adService.addHotel(hotel);
+			redirectAttributes.addFlashAttribute("hotelAttrribute", true);
 			return "redirect:/adminHome";
+			
 		}else return "redirect:/adminLog";
 	}
 	
@@ -505,6 +521,23 @@ public class CustomerController
 			return "redirect:/allbookings";
 		}else return "redirect:/adminLog";
 	}
+	
+	
+	@RequestMapping("/findPackage")
+	public String findPackage() {
+		return "CustFindpackages";
+	}
+	
+	@PostMapping("/findPacks")
+	public String getPack(@RequestParam("from") String from, @RequestParam("to") String to, ModelMap m, HttpSession s1) {
+		String email = (String) s1.getAttribute("email");
+		if(email != null) {
+			List<Packages> p = adService.findPackages(from, to);
+			m.addAttribute("data", p);
+			return "CustFindpackages";
+		}else return "redirect:/login";
+	}
+	
 }
 
 

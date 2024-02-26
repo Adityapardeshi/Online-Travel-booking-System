@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+  <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
+  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/sidebars.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Admin Dashboard</title>
 </head>
 <body>
@@ -79,22 +82,75 @@
         <div class="col-4">
             <div class="card shadow-lg bg-danger text-white" style="width: 16rem;">
                 <div class="card-header fw-bold">Total Users</div>
-                <div class="card-body">3030</div>
+                <div id="users" class="card-body">${users}</div>
             </div>
         </div>
         <div class="col-4">
             <div class="card shadow-lg bg-primary text-white" style="width: 16rem;">
                 <div class="card-header fw-bold">Total Packages</div>
-                <div class="card-body">18</div>
+                <div id="packages" class="card-body">${packs}</div>
             </div>
         </div>
         <div class="col-4">
             <div class="card shadow-lg bg-dark text-white" style="width: 16rem;">
                 <div class="card-header fw-bold">Active Bookings</div>
-                <div class="card-body">478</div>
+                <div id="bookings" class="card-body">${bookings}</div>
             </div>
         </div>
     </div>
+    
+    <div class="my-5">
+  		<canvas id="myChart" height="140rem"></canvas>
+	</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Users', 'Packages', 'Bookings'],
+      datasets: [{
+        label: 'No',
+        data: [document.getElementById('users').innerText, document.getElementById('packages').innerText, document.getElementById('bookings').innerText],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+  
+  function message(){
+      Swal.fire({
+    	  icon: "success",
+    	  title: "Saved Succesfully",
+    	  showConfirmButton: false,
+    	  timer: 2500
+    	});
+    }
+
+</script>
+    
+    <c:if test="${not empty hotelAttrribute}">
+        <script>
+        	message();
+        </script>
+    </c:if>
+    
+    <c:if test="${not empty packageAttrribute}">
+        <script>
+        	message();
+        </script>
+    </c:if>
+    
     </div>
 </div>
 </body>

@@ -9,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/sidebars.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
     <title>Add Hotel</title>
 </head>
 <body>
@@ -79,11 +80,11 @@
 	    <form style="width: 65%;" class="my-3" action="/saveHotel" method="post">
 	        <div class="mb-3">
 	          <label for="Name" class="form-label">Name</label>
-	          <input type="text" name="name" class="form-control" id="name">
+	          <input type="text" name="name" class="form-control" id="name" required>
 	        </div>
 	        <div class="mb-3">
 	          <label for="address" class="form-label">Address</label>
-	          <input type="text" name="address" class="form-control" id="address">
+	          <input type="text" name="address" class="form-control" id="address" required>
 	        </div>
 	        <div class="mb-3">
 	            <label for="rating" class="form-label">Rating</label>
@@ -98,7 +99,7 @@
 	          </div>
 	          <div class="mb-3">
 	            <label for="price" class="form-label">Price Per Night</label>
-	            <input type="number" name="price" class="form-control" id="price">
+	            <input type="number" name="price" class="form-control" id="price" required>
 	          </div>
 	        <button type="submit" class="btn btn-primary">Submit</button>
 	      </form>
@@ -106,5 +107,7 @@
 	</div>
 </div>
 </div>
+
+
 </body>
 </html>
